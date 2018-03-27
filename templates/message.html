@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>message</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script src="{% static 'js/zepto.js' %}"></script>
+    <script type="text/javascript">
+        var i = 5;
+        var intervalid;
+        intervalid = setInterval("fun()", 1000);
+        function fun() {
+            if (i == 0) {
+                history.go(-1);
+                clearInterval(intervalid);
+            }
+            document.getElementById("clock").innerHTML =i + "秒后进行跳转";
+            i--;
+        }
+    </script>
+</head>
+<body>
+    <p>{{ message }}</p>
+    <p id="clock"></p>
+</body>
+</html>

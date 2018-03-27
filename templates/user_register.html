@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user_register</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/zepto.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script type="text/javascript">
+        function check(form) {
+            var parm1 = /^[\u4e00-\u9fa5_a-zA-Z0-9]{1,15}$/;
+            var user_name = form.user_name.value
+            if(!parm1.exec(user_name)) {
+          alert("用户帐号仅能包含字母，数字和中文，不能为空,不能过长");
+          form.user_name.focus();
+        return false;
+       }
+       if(form.user_password.value=='') {
+                alert("请输入登录密码!");
+        form.user_password.focus();
+        return false;
+       }
+             var phone = form.user_phone.value
+             var phone1 = /^\d{3}-d{8}|d{4}-\d{7}$/;
+             var phone2 = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+       if(!phone1.exec(phone)&&!phone2.exec(phone)) {
+                alert("请输入正确的手机号码!");
+        form.user_phone.focus();
+        return false;
+       }
+       return true;
+    }
+    </script>
+</head>
+<body>
+    <h1>用户注册页面</h1>
+    <form action="/user_register/" method="post" onsubmit="return check(this)"  enctype="multipart/form-data">
+        <br><br> name:<input type="text" name="user_name"/>
+        <br><br>password:<input type="password" name="user_password"/>
+        <br><br>phone:<input type="text" name="user_phone"/>
+        <br><br>image:<input type="file" name="user_img" onchange="previewCover(this)" >
+        <div id="showCover"></div>
+        <br><br><input type="submit" value="提交">
+    </form>
+
+
+    <h2>{{ message }}</h2>
+</body>
+</html>

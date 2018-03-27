@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>store_register</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/zepto.js' %}"></script>
+    <script src="{% static 'js/qrcode.lib.min.js' %}"></script>
+    <script src="{% static 'js/qrcode.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+{#    <script src="{% static 'js/cardSetting.js' %}"></script>#}
+    <script type="text/javascript">
+        //商店注册验证
+        function register_check(form) {
+            var parm1 = /^[\u4e00-\u9fa5_a-zA-Z0-9]+$/;
+            var user_name = form.store_name.value
+            if(!parm1.exec(user_name)) {
+            alert("商店名仅能包含字母，数字和中文，不能为空");
+            form.store_name.focus();
+                $("input[name=store_card_date]").val("")
+            return false;
+          }
+            if(form.store_password.value=='') {
+                alert("请输入登录密码!");
+            form.store_password.focus();
+                $("input[name=store_card_date]").val("")
+            return false;
+           }
+             var phone = form.store_phone.value
+             var phone1 = /^\d{3}-d{8}|d{4}-\d{7}$/;
+             var phone2 = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+            if(!phone1.exec(phone)&&!phone2.exec(phone)) {
+                alert("请输入正确的手机号码!");
+              form.store_phone.focus();
+                $("input[name=store_card_date]").val("")
+              return false;
+             }
+             if(form.store_registerName.value==''|| form.store_date.value==''||
+                 form.store_address.value==''||form.store_message.value=='') {
+                 alert("所有信息不能为空")
+                 $("input[name=store_card_date]").val("")
+                 return false
+             }
+            return true;
+        }
+        $(function() {
+            Qrcode.init($('[node-type=jsbridge]'));
+        });
+    </script>
+
+    <style>
+        input[node-type=jsbridge]{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<h1>商店注册信息填写</h1>
+{#<img src="{% static 'images/me.jpg' %}">#}
+<div class="qr-btn" node-type="jsbridge">点击解析企业营业执照二维码图片
+    <input node-type="jsbridge" type="file" name="myPhoto" value="点击解析二维码图片" />
+</div>
+</br>
+
+
+<form action="/store_register/" method="post" onsubmit="return register_check(this)" enctype="multipart/form-data">
+    <hr>
+    <h3>基本信息</h3>
+    商店名:<input type="text" class="result_name" name="store_name" size="85" /></br></br>
+    密码:<input type="password" name="store_password" size="85" /></br></br>
+    头像:<input type="file" name="store_cover" onchange="previewCover(this)" /></br></br>
+    <div id="showCover"></div>
+    手机号码:<input type="text" name="store_phone" size="85" /></br></br>
+    企业信用代码:<input type="text" class="result_id" name="store_registerId"size="85"/></br></br>
+    企业注册名:<input type="text" class="result_name" name="store_registerName"size="85" /></br></br>
+    企业注册时间:<input type="text" class="result_time" name="store_date"size="85" /></br></br>
+    企业注册地址:<input type="text" class="result_address" name="store_address"size="85" /></br></br>
+    企业注册信息:<input type="text" class="result_message" name="store_message"size="85" /></br></br>
+    商店图片:<input type="file" name="store_img" onchange="previewImage(this,3)" multiple="multiple"/> </br></br>
+    <div id="showImage"></div>
+    <br><input type="submit" value="提交">
+</form>
+
+
+<h2>{{ message }}</h2>
+</body>
+</html>
+
+
+
+
+
+
+
+

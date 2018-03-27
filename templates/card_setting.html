@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>card_setting</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/zepto.js' %}"></script>
+    <script src="{% static 'js/qrcode.lib.min.js' %}"></script>
+    <script src="{% static 'js/qrcode.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script src="{% static 'js/cardSetting.js' %}"></script>
+    <script type="text/javascript">
+    </script>
+    <style>
+    </style>
+</head>
+<body>
+<hr>
+<h3>会员卡设置</h3>
+<input type="radio" name="Setting"  id="Setting1" checked />现在设置&nbsp&nbsp&nbsp
+<input type="radio" name="Setting" id="Setting2" />稍后设置
+<div id="cardsetting">
+
+</div>
+<br><input type='submit' value='下一步' onclick="setting_submit()">
+
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user_home</title>
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    {% load staticfiles %}
+    <script src="{% static 'js/myjs.js' %}"></script>
+    <script src="{% static 'js/zepto.js' %}"></script>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap/dist/css/bootstrap-theme.min.css'%}" rel="stylesheet">
+
+    {# <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js'%}"></script>
+    <script src="{% static 'bootstra/js/modal.js'%}"></script>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+    <h1>用户界面</h1>
+    <p>{{ name }}</p>
+    <hr>
+    <h1>商店</h1>
+    {% for store in store_list %}
+        <hr>
+        <span>{{ store.name }}</span><button onclick="card_register('{{ name }}','{{ store.name }}')">点击注册会员</button><br>
+        <div style="margin-left: 15px">
+            <h2>商品</h2>
+            {% for goods in store.goods %}
+                 <span>{{ goods.name }}</span><span>(价格{{ goods.price }},剩余数量{{ goods.number }})</span>
+                <button data-toggle="modal" data-target="#addToCarModal" >加入购物车</button><br>
+                <!--加入购物车-->
+                <div class="modal fade" id="addToCarModal" tabindex="-1" role="dialog" aria-labelledby="addToCarModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="addToCarModalLabel">加入购物车</h4>
+                            </div>
+                            <div class="modal-body border_white">
+                                购买数量：<input type="text" id="buy_number" /><br><br>
+                                <button onclick="buyGoods('{{ goods.id }}','{{ goods.number }}','{{ store.name }}')">确定</button>
+                                <button type="button" data-dismiss="modal" aria-label="Close">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <h1>我注册的商店</h1>
+    {% for card in card_list %}
+        <hr>
+        <h5>{{ card.store }}</h5>
+        <img src="/createbarcodebase64/{{ card.number }}" /><br/><br>
+    {% endfor %}
+
+
+    <button data-toggle="modal" data-target="#buyGoodsModal" >点击购买</button><br>
+    <!--加入购物车-->
+    <div class="modal fade" id="buyGoodsModal" tabindex="-1" role="dialog" aria-labelledby="buyGoodsModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="buyGoodsModalLabel">加入购物车</h4>
+                </div>
+                <div class="modal-body border_white">
+                    购买数量：<input type="text" id="buy_number" /><br><br>
+                    <button onclick="buyGoods('{{ name }}')">确定</button>
+                    <button type="button" data-dismiss="modal" aria-label="Close">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

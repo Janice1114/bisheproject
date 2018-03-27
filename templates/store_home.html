@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!--移动设备优先-->
+    <title>store_home</title>
+
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    {% load staticfiles %}
+    <!-- Bootstrap -->
+    <link href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'bootstrap/dist/css/bootstrap-theme.min.css'%}" rel="stylesheet">
+
+    {# <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="{% static 'bootstrap/dist/js/bootstrap.js'%}"></script>
+    <script src="{% static 'bootstra/js/modal.js'%}"></script>
+
+    <script src="{% static 'js/zepto.js' %}"></script>
+    <script src="{% static 'js/myjs.js' %}"></script>
+
+</head>
+<body>
+
+<img src="{{  mstore.cover }}" style="width: 30px"/><span>{{ mstore.name }}</span>
+<button onclick="showGoods()" style="float: right">添加商品</button>
+<form id="AddGoods" style="display:none" action="/goods_stock/" method="post"
+      onsubmit="return addGoods(this)"  enctype="multipart/form-data">
+    <hr>
+    <h3>添加商品</h3>
+    <input type="text" name="store_name" value="{{ mstore.name }}" style="display:none" >
+    商品名：<input type="text" name="goods_name"><br><br>
+    商品信息：<input type="text" name="goods_message"><br><br>
+    入库价格：<input type="text" name="stock_price">
+    销售价格：<input type="text" name="goods_price"><br><br>
+    进行会员打折：<input type="checkbox" name="goods_Allowcard_check" checked><br><br>
+    <input type="text" name="goods_Allowcard" style="display: none">
+    商品积分：<input type="text" name="goods_cardScore"><br><br>
+    折扣：<input type="text" name="goods_discount" value="1"><br><br>
+    库存预警数量：<input type="text" name="goosd_warn"><br><br>
+    数量：<input type="text" name="goods_left"><br><br>
+    商店图片:<input type="file" name="goods_img" onchange="previewImage(this,5)" multiple="multiple"/> </br></br>
+    <div id="showImage"></div>
+    <input type="submit" value="提交">
+    <h3 style="float: right" onclick="hideGoods()">收起</h3>
+    <hr>
+</form>
+<br>
+
+{% for item in goods_list %}
+    <div>
+        <hr>
+        <button style="float: right"  data-toggle="modal" data-target="#addStockModal" >点击添加库存</button>
+        <!--添加库存-->
+        <div class="modal fade" id="addStockModal" tabindex="-1" role="dialog" aria-labelledby="addStockModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="addStockModalLabel">增加库存</h4>
+                    </div>
+                    <div class="modal-body border_white">
+                        入库的数量：<input type="text" id="number" /><br><br>
+                        入库的价格：<input type="text" id="stock_price"><br><br>
+                        <button onclick="addStock('{{ item.goods_id }}')"  >确定</button>
+                        <button type="button" data-dismiss="modal" aria-label="Close">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <p>商品名：{{ item.goods_name }}</p>
+        <p>价格：{{ item.goods_price }}</p>
+        <p>剩余数量：{{ item.good_left }}</p>
+        <p>计划进货量{{ item.goods_plan }}</p>
+        <p>{{ item.warn}}</p>
+        {% for i in  item.goods_img%}
+            {% if i %}
+               <img src="{{ i.url }}" style="width: 100px">
+            {% endif %}
+        {% endfor %}
+    </div>
+{%  endfor %}
+<hr>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
