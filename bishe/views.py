@@ -118,13 +118,11 @@ def get_message(request):
                 i = i+1
         return HttpResponse( message )
     except:
-        message = "获取信息有误，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 
 #用户注册模块
 def user_register(request):
     try:
-        message = ""
         if request.method == "POST":
             #判断用户名是否被注册
             user_name = request.POST.get('user_name',None)
@@ -151,13 +149,11 @@ def user_register(request):
                     obj = models.user.objects.create(user_id=user_id,user_openId=user_openId,user_img=user_img,
                      user_name=user_name,user_password=user_password,user_phone=user_phone)
                 models.user.save(obj)
-                message = "注册成功"
+                return JsonResponse({'msg': 'ok'})
             else:
-                message = "用户名已经被注册"
-        return render_to_response('user_register.html',{'message' : message})
+                return JsonResponse({'msg': 'duplicate'})
     except:
-        message = "注册失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 #用户登录模块
 def user_login(request):
     return render_to_response('user_login.html')
@@ -189,12 +185,10 @@ def user_login_check(request):
                 else:
                     return JsonResponse({'msg': 'fail'})
     except:
-        message = "登录失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 def user_home(request):
     if request.session.get('user_login'):
         name = request.session['user_name']
-
         store = models.store.objects.filter()
         store_list = []
         for item in store:
@@ -212,9 +206,9 @@ def user_home(request):
         for item in Cards:
             data = {"number":item.card_number,'store':item.card_store.store_name}
             card_list.append(data)
-        return render_to_response('user_home.html',{'name':name,'store_list':store_list,'card_list':card_list})
+        return JsonResponse({'name':name,'store_list':store_list,'card_list':card_list})
     else:
-        return redirect('/user_login/')
+        return JsonResponse({'msg': 'unLogin'})
 # 商店注册模块
 def store_register(request):
     try:
@@ -266,13 +260,11 @@ def store_register(request):
                 # return render_to_response('card_setting.html', {'message': message,'store_id':store_id})
                 request.session['store_register'] = True
                 request.session['store_register_name'] = store_name
-                return redirect('/card_setting/')
+                return JsonResponse({'msg': 'ok'})
             else:
-                message = "商店名已经被注册"
-        return render_to_response('store_register.html', {'message': message})
+                return JsonResponse({'msg': 'duplicate'})
     except:
-        message = "注册失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 #商店登录模块
 def store_login(request):
     return render_to_response('store_login.html')
@@ -304,8 +296,7 @@ def store_login_check(request):
                 else:
                     return JsonResponse({'msg': 'fail'})
     except:
-        message = "注册失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 def store_home(request):
     try:
         if request.session.get('store_login'):
@@ -338,10 +329,9 @@ def store_home(request):
             }
             return render_to_response('store_home.html',{'mstore':mstore,'goods_list':goods_list})
         else:
-            return redirect('/store_login/')
+            return JsonResponse({'msg': 'unLogin'})
     except:
-        message = "打开失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 #商品入库模块
 def goods_stock(request):
     try:
@@ -363,7 +353,7 @@ def goods_stock(request):
                     goods_plan = 0
                 goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
                 if(goods_store.count() == 0):
-                    return redirect('/store_home/')
+                    return JsonResponse({'msg': 'noStore'})
                 #id
                 goods_id ='G' + datetime.now().strftime("%y%m%d%H%M%S%f") + goods_store[0].store_registerId
                 #图片
@@ -400,13 +390,13 @@ def goods_stock(request):
                 #商品入库
                 goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[goods_id])
                 if(goods.count() == 0):
-                    return redirect('/store_home/')
+                    return JsonResponse({'msg': 'noGoods'})
                 stock_id = "S" + datetime.now().strftime("%y%m%d%H%M%S%f") + store_registerId
                 stock_price = request.POST.get('stock_price', None)
                 obj_stock = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],
                                                         stock_price=stock_price,stock_number=goods_left)
                 models.stock.save(obj_stock)
-                return redirect('/store_home/')
+                return JsonResponse({'msg': 'ok'})
             #入库
             else:
                 goods_id =request.POST.get('goods_id', None)
@@ -434,8 +424,7 @@ def goods_stock(request):
                     models.goods.objects.filter(goods_id=goods_id).update(goods_left=str(sum),goods_plan=goods_plan)
                     return JsonResponse({'msg': 'ok'})
     except:
-        message = "增加商品失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 
 #会员卡设置
 def card_setting(request):
@@ -470,10 +459,8 @@ def card_setting(request):
                 return JsonResponse({'msg': 'ok'})
             else:
                 return JsonResponse({'msg': 'fail'})
-        return render_to_response('card_setting.html')
     except:
-        message = "注册失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 #会员卡发放
 def card_register(request):
     try:
@@ -507,8 +494,7 @@ def card_register(request):
             obj.save()
             return JsonResponse({'msg': 'ok'})
     except:
-        message = "注册会员失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
 
 #商品购买
 def buy_goods(request):
@@ -532,5 +518,4 @@ def buy_goods(request):
             obj.save()
             return JsonResponse({'msg': 'ok'})
     except:
-        message = "注册会员失败，请稍后再试"
-        return render_to_response('message.html', {'message': message})
+        return JsonResponse({'msg': 'system_fail'})
