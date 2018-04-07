@@ -120,7 +120,9 @@ def get_message(request):
     except:
         return JsonResponse({'msg': 'system_fail'})
 
-#用户注册模块
+def index(respsonse):
+    return HttpResponse(u"welcome")
+#用户注册模块:
 def user_register(request):
     try:
         if request.method == "POST":

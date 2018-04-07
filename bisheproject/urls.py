@@ -23,10 +23,11 @@ from django.urls import path
 
 from bishe.views import user_register, user_login, get_message, store_register, store_login, store_home, verify_code, \
    user_login_check, user_home, store_login_check, goods_stock, createbarcodebase64, card_register, card_setting, \
-   buy_goods
+   buy_goods, index
 
 urlpatterns = [
    #path('admin/', admin.site.urls),
+   url(r'^',index),
    url(r'^admin/',admin.site.urls),
 
    url(r'^user_register/',user_register),
