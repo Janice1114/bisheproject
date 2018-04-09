@@ -27,7 +27,7 @@ from bishe.views import user_register, user_login, get_message, store_register, 
 
 urlpatterns = [
    #path('admin/', admin.site.urls),
-   url(r'^',index),
+   url(r'^index',index),
    url(r'^admin/',admin.site.urls),
 
    url(r'^user_register/',user_register),
