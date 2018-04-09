@@ -27,32 +27,32 @@ from bishe.views import user_register, user_login, get_message, store_register, 
 
 urlpatterns = [
    #path('admin/', admin.site.urls),
-   url(r'^index',index),
-   url(r'^admin/',admin.site.urls),
+   url(r'index',index),
+   url(r'admin/',admin.site.urls),
 
-   url(r'^user_register/',user_register),
-   url(r'^user_login/',user_login),
+   url(r'user_register/',user_register),
+   url(r'user_login/',user_login),
    url(r'user_login_check/',user_login_check),
    url(r'user_home/',user_home),
 
-   url(r'^store_register/',store_register),
-   url(r'^store_login/',store_login),
-   url(r'^store_login_check/',store_login_check),
-   url(r'^store_home/',store_home),
+   url(r'store_register/',store_register),
+   url(r'store_login/',store_login),
+   url(r'store_login_check/',store_login_check),
+   url(r'store_home/',store_home),
 
-   url(r'^goods_stock/',goods_stock),
+   url(r'goods_stock/',goods_stock),
    #爬虫
-   url(r'^get_message/',get_message),
+   url(r'get_message/',get_message),
    # 生产验证码图片url
-   url(r'^verify_code/',verify_code),
+   url(r'verify_code/',verify_code),
    #生成条形码
-   url(r'^createbarcodebase64/(\w+)',createbarcodebase64),
+   url(r'createbarcodebase64/(\w+)',createbarcodebase64),
    #会员卡
-   url(r'^card_register',card_register),
+   url(r'card_register',card_register),
    #会员卡设置
-   url(r'^card_setting',card_setting),
+   url(r'card_setting',card_setting),
    #购买
-   url(r'^buy_goods', buy_goods)
+   url(r'buy_goods', buy_goods)
 
 ]
 urlpatterns += staticfiles_urlpatterns()
