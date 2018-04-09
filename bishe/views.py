@@ -121,7 +121,7 @@ def get_message(request):
         return JsonResponse({'msg': 'system_fail'})
 
 def index(respsonse):
-    return HttpResponse(u"welcome")
+    return HttpResponse(u"welcom")
 #用户注册模块:
 def user_register(request):
     try:
