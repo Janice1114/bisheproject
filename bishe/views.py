@@ -300,7 +300,7 @@ def store_login_check(request):
     except:
         return JsonResponse({'msg': 'system_fail'})
 def store_home(request):
-    try:
+    # try:
         if request.session.get('store_login'):
             name = request.session['store_name']
             store = models.store.objects.filter(store_name=name)
@@ -332,8 +332,8 @@ def store_home(request):
             return render_to_response('store_home.html',{'mstore':mstore,'goods_list':goods_list})
         else:
             return JsonResponse({'msg': 'unLogin'})
-    except:
-        return JsonResponse({'msg': 'system_fail'})
+    # except:
+    #     return JsonResponse({'msg': 'system_fail'})
 #商品入库模块
 def goods_stock(request):
     try:
