@@ -84,7 +84,7 @@ def verify_code(request):
     return HttpResponse(buf.getvalue(), 'image/png')
 #网页爬虫模块
 def get_message(request):
-    try:
+    # try:
         if request.method == "POST":
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
             #url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
@@ -117,8 +117,8 @@ def get_message(request):
                         message = message + item.text # 地址
                 i = i+1
         return HttpResponse( u'123' )
-    except:
-        return JsonResponse({'msg': 'system_fail'})
+    # except:
+    #     return JsonResponse({'msg': 'system_fail'})
 
 def index(respsonse):
     return HttpResponse(u"welcome")
