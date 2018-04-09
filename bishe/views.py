@@ -329,7 +329,7 @@ def store_home(request):
             mstore = {
                 'name':name,'cover':store[0].store_cover.url,
             }
-            return render_to_response('store_home.html',{'mstore':mstore,'goods_list':goods_list})
+            return JsonResponse({'mstore':mstore,'goods_list':goods_list})
         else:
             return JsonResponse({'msg': 'unLogin'})
     # except:
