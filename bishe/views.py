@@ -88,8 +88,8 @@ def get_message(request):
         message = "";
         if request.method == "POST":
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
-            url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
-            #url = request.POST.get('url', None)
+            #url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
+            url = request.POST.get('url', None)
             html = urllib.request.Request(url=url,headers=headers)
             html = urllib.request.urlopen(html).read()
             soup= BeautifulSoup(html,"html.parser")
@@ -125,7 +125,7 @@ def index(respsonse):
     return HttpResponse(u"welcom")
 #用户注册模块:
 def user_register(request):
-    try:
+    # try:
         if request.method == "POST":
             #判断用户名是否被注册
             user_name = request.POST.get('user_name',None)
@@ -155,8 +155,8 @@ def user_register(request):
                 return JsonResponse({'msg': 'ok'})
             else:
                 return JsonResponse({'msg': 'duplicate'})
-    except:
-        return JsonResponse({'msg': 'system_fail'})
+    # except:
+    #     return JsonResponse({'msg': 'system_fail'})
 #用户登录模块
 def user_login(request):
     return render_to_response('user_login.html')
