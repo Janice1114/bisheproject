@@ -87,8 +87,8 @@ def get_message(request):
     # try:
         if request.method == "POST":
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
-            #url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
-            url = request.POST.get('url', None)
+            url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
+            #url = request.POST.get('url', None)
             html = urllib.request.Request(url=url,headers=headers)
             html = urllib.request.urlopen(html).read()
             soup= BeautifulSoup(html,"html.parser")
