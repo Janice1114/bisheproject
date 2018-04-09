@@ -117,7 +117,7 @@ def get_message(request):
                     if(i == 12):
                         message = message + item.text # 地址
                 i = i+1
-        return HttpResponse( message )
+        return JsonResponse({'message':message} )
     # except:
     #     return JsonResponse({'msg': 'system_fail'})
 
