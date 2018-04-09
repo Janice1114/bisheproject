@@ -214,8 +214,7 @@ def user_home(request):
         return JsonResponse({'msg': 'unLogin'})
 # 商店注册模块
 def store_register(request):
-    try:
-        message = ""
+    # try:
         if request.method == "POST":
             store_name = request.POST.get('store_name', None)
             result = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
@@ -266,8 +265,8 @@ def store_register(request):
                 return JsonResponse({'msg': 'ok'})
             else:
                 return JsonResponse({'msg': 'duplicate'})
-    except:
-        return JsonResponse({'msg': 'system_fail'})
+    # except:
+    #     return JsonResponse({'msg': 'system_fail'})
 #商店登录模块
 def store_login(request):
     return render_to_response('store_login.html')
