@@ -42,6 +42,10 @@ class store(models.Model):
     store_time = models.DateTimeField(u'商店注册时间', default=datetime.now(),editable=False)
     store_cover = models.ImageField(u'头像', upload_to=get_path,default='storeImage/default.png')
     store_card_Ddiscount = models.FloatField(u'初始折扣', default=1)
+    latitude = models.FloatField(u'经度', default=39.908775864608)
+    longitude = models.FloatField(u'纬度', default=116.39759036591)
+    cityid = models.FloatField(u'cityCode',default=110100)
+    order_number = models.IntegerField(u'订单数量',default=0)
     store_card_Dlever = models.CharField(u'初始等级',max_length=50,default="")
     store_card_number = models.CharField(u'会员数量',max_length=50,default=0)
     store_card_prefix = models.CharField(u'会员卡前缀',max_length=50,default="")
@@ -50,7 +54,8 @@ class store(models.Model):
     store_card_up_style = models.TextField(u'等级上升的标准',default=0)#人工或者通过积分
     store_card_message = models.TextField(u'会员卡说明',default="")
     store_card_date = models.TextField(u'有限期',default=0)#0表示无限期，用天数表示
-    store_img1 = models.ImageField(u'图片1', upload_to=get_path,blank=True)
+    store_cardSetting = models.IntegerField(u'是否进行会员卡设置',default=0)
+    store_img1 = models.ImageField(u'图片1', upload_to=get_path,default='storeImage/default.png')
     store_img2 = models.ImageField(u'图片2', upload_to=get_path,blank=True)
     store_img3 = models.ImageField(u'图片3', upload_to=get_path,blank=True)
     def __str__(self):
@@ -62,11 +67,12 @@ class goods(models.Model):
     # 每个商店对应多个商品
     goods_store=models.ForeignKey('store',on_delete=models.CASCADE,related_name="STORE2GOODS")
     goods_name = models.CharField(u'商品名称',max_length=50)
+    goods_code = models.IntegerField(u'商品条形码',default=0)
     goods_message = models.TextField(u'商品信息',default="")
     goods_price = models.FloatField(u'商品价格',default=0.0)
     goods_score = models.FloatField(u'商品分数',default=2.0)
     goods_left = models.FloatField(u'剩余数量', default=0)
-    goods_warn = models.FloatField(u'库存预警数量',default=0)
+    gi = models.FloatField(u'库存预警数量',default=0)
     goods_plan = models.FloatField(u'计划进货数量',default=0)
     goods_Allowsale = models.IntegerField(u'是否能销售',default=0)
     goods_Allowcard = models.IntegerField(u'是否能会员卡打折',default=0)
@@ -106,15 +112,21 @@ class order(models.Model):
     #每个用户有多张订单
     order_user = models.ForeignKey('user', on_delete=models.CASCADE, related_name="USER2ORDER",default="")
     order_goods = models.ManyToManyField('goods',related_name="GOODS2ORDER")
-    order_discount = models.FloatField(u'折扣',default=0)
+    order_discount = models.TextField(u'折扣',default="")
+    order_number = models.TextField(u'数量',default="")
+    order_allowCard = models.TextField(u'会员卡', default="")
+    order_cardDiscount = models.FloatField(u'会员卡折扣', default=1)
+    order_priceList = models.TextField(u'',default="")
     order_price = models.FloatField(u'成交价格',default=0.0)
+    order_state = models.CharField(u'状态',default="提交")#0表示提交，表示成功，2表示关闭
+    order_pay = models.CharField(u'支付方式',default="未支付")#0未支付，1现金，2移动支付
     order_time = models.DateTimeField(u'成交时间',default=datetime.now())
     def __str__(self):
         return self.order_id
 
 class comment(models.Model):
     comment_id = models.CharField(u'编号',max_length=5,unique=True,primary_key=True,editable=False)
-    comment_order = models.ForeignKey('order',on_delete=models.CASCADE,related_name="ORDER2COMENT")
+    comment_order = models.ForeignKey('goods',on_delete=models.CASCADE,related_name="GOODS2COMENT")
     comment_time = models.DateTimeField(u'评论时间')
     comment_score = models.FloatField(u'评分',default=0.0)
     comment_message = models.FloatField(u'评论内容',default=0.0)
