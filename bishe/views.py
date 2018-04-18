@@ -77,7 +77,7 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     request.session['verifycode'] = rand_str
-    print(request.session['verifycode'])
+    print(request.getSession().getId())
     # 11，内存文件操作
     buf = BytesIO()
     # 12，将图片保存在内存中，文件类型为png
@@ -170,7 +170,7 @@ def user_login_check(request):
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
             print(vcode)
-            print(urllib.parse.unquote(urllib.parse.quote(request.POST.get('name', None))))
+            print(urllib.parse.quote(request.POST.get('name', None)))
             print(urllib.parse.unquote(request.POST.get('name', None)))
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
