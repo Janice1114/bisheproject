@@ -125,6 +125,7 @@ def user_register(request):
         if request.method == "POST":
             #判断用户名是否被注册
             user_name = request.POST.get('user_name',None)
+            print(user_name)
             # result = models.user.objects.filter(user_name=user_name)
             result = models.user.objects.extra(where=['binary user_name=%s'], params=[user_name])
             if(result.count() == 0):
@@ -173,6 +174,7 @@ def user_login_check(request):
                 return JsonResponse({'msg': 'fail_verify'})
             #获取用户名
             name = request.POST.get('name', None)
+            print(name)
             user = models.user.objects.filter(user_name=name)
             if(user.count() == 0):
                 return JsonResponse({'msg': 'fail'})
