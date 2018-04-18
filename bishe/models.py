@@ -72,7 +72,7 @@ class goods(models.Model):
     goods_price = models.FloatField(u'商品价格',default=0.0)
     goods_score = models.FloatField(u'商品分数',default=2.0)
     goods_left = models.FloatField(u'剩余数量', default=0)
-    gi = models.FloatField(u'库存预警数量',default=0)
+    goods_warn = models.FloatField(u'库存预警数量',default=0)
     goods_plan = models.FloatField(u'计划进货数量',default=0)
     goods_Allowsale = models.IntegerField(u'是否能销售',default=0)
     goods_Allowcard = models.IntegerField(u'是否能会员卡打折',default=0)
@@ -118,8 +118,8 @@ class order(models.Model):
     order_cardDiscount = models.FloatField(u'会员卡折扣', default=1)
     order_priceList = models.TextField(u'',default="")
     order_price = models.FloatField(u'成交价格',default=0.0)
-    order_state = models.CharField(u'状态',default="提交")#0表示提交，表示成功，2表示关闭
-    order_pay = models.CharField(u'支付方式',default="未支付")#0未支付，1现金，2移动支付
+    order_state = models.CharField(u'状态',max_length=50,default="提交")#0表示提交，表示成功，2表示关闭
+    order_pay = models.CharField(u'支付方式',max_length=50,default="未支付")#0未支付，1现金，2移动支付
     order_time = models.DateTimeField(u'成交时间',default=datetime.now())
     def __str__(self):
         return self.order_id
