@@ -163,7 +163,7 @@ def check_user_ifLogin(request):
     else:
         return JsonResponse({'msg': 'unLogin'})
 def user_login_check(request):
-    try:
+    # try:
         if request.method == "POST":
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
@@ -189,8 +189,8 @@ def user_login_check(request):
                     return JsonResponse({'msg': 'ok_user'})
                 else:
                     return JsonResponse({'msg': 'fail'})
-    except:
-        return JsonResponse({'msg': 'system_fail'})
+    # except:
+    #     return JsonResponse({'msg': 'system_fail'})
 def user_home(request):
     if request.session.get('user_login'):
         name = request.session['user_name']
