@@ -170,6 +170,7 @@ def user_login_check(request):
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
             print(vcode)
+            print(request.POST.get('name', None))
             print(urllib.parse.unquote(request.POST.get('name', None)))
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
