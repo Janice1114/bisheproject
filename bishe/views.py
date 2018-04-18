@@ -77,7 +77,6 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     request.session['verifycode'] = rand_str
-    print(request.getSession().getId())
     # 11，内存文件操作
     buf = BytesIO()
     # 12，将图片保存在内存中，文件类型为png
