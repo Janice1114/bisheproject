@@ -169,7 +169,6 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
-            print(vcode + vcode_session)
             if(vcode != vcode_session):
                 return JsonResponse({'msg': 'fail_verify'})
             #获取用户名
