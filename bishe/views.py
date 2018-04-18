@@ -168,8 +168,10 @@ def user_login_check(request):
         if request.method == "POST":
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
+            print(vcode)
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
+            print(vcode_session)
             if(vcode != vcode_session):
                 return JsonResponse({'msg': 'fail_verify'})
             #获取用户名
