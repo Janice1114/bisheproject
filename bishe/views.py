@@ -191,17 +191,26 @@ def check_user_ifLogin(request):
 def user_login_check(request):
     # try:
         if request.method == "POST":
-            # 获取用户输入的验证码
-            vcode = request.POST.get('vcode')
-            print(request.session.session_key)
+            # # 获取用户输入的验证码
+            # vcode = request.POST.get('vcode')
+            # print(request.session.session_key)
             # 获取session中的验证码
             # vcode_session = request.session.get('verifycode')
-            session_id = request.session.session_key;
-            session = models.session.objects.filter(session_id=session_id)
-            vcode_session = session[0].number;
-            print(vcode_session)
-            if(vcode != vcode_session):
-                return JsonResponse({'msg': 'fail_verify'})
+            # session_id = request.session.session_key;
+            # session = models.session.objects.filter(session_id=session_id)
+            # vcode_session = session[0].number;
+            # print(vcode_session)
+            # if(vcode != vcode_session):
+            #     return JsonResponse({'msg': 'fail_verify'})
+            js_code = request.POST.get('js_code', None)
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
+            url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code=" + js_code + "&grant_type=authorization_code";
+            html = urllib.request.Request(url=url, headers=headers)
+            html = urllib.request.urlopen(html)
+            openid = html.data.openid;
+            if openid == "":
+                return JsonResponse({'msg': 'fail'})
+
             #获取用户名
             name = request.POST.get('name', None)
 
@@ -217,14 +226,20 @@ def user_login_check(request):
                 if(password == password1):
                     request.session['user_login']=True
                     request.session['user_name']=name
-                    return JsonResponse({'msg': 'ok_user'})
+                    user[0].update(user_openId = openid)
+                    return JsonResponse({'msg': 'ok_user','openid':openid})
                 else:
                     return JsonResponse({'msg': 'fail'})
     # except:
     #     return JsonResponse({'msg': 'system_fail'})
 def user_home(request):
-    if request.session.get('user_login'):
-        name = request.session['user_name']
+    # if request.session.get('user_login'):
+    #     name = request.session['user_name']
+        name = request.POST.get('name')
+        openid = request.POST.get('openid')
+        user = models.user.objects.filter(user_name=name,user_openId=openid)
+        if user.count() == 0:
+            return JsonResponse({'msg': 'unLogin'})
         longitude = request.POST.get('longitude')
         latitude = request.POST.get('latitude')
         cityid = request.POST.get('cityid')
@@ -249,8 +264,8 @@ def user_home(request):
                 data = {"name":item.store_name,"distance":distance,"number":item.order_number,'score':item.store_score,'lat':item.latitude,'lng':item.longitude}
                 store_list.append(data)
         return JsonResponse({'name':name,'store_list':store_list})
-    else:
-        return JsonResponse({'msg': 'unLogin'})
+    # else:
+    #     return JsonResponse({'msg': 'unLogin'})
 def store_show(request):
     if request.method == "POST":
         store_name = request.POST.get('store_name', None)
@@ -278,9 +293,13 @@ def user_user(request):
         return JsonResponse({'user_message':user_message,'card_list': card_list})
 
 def user_order(request):
-    if request.session.get('user_login'):
-        name = request.session['user_name']
-        user = models.user.objects.filter(user_name=name)
+    # if request.session.get('user_login'):
+    #     name = request.session['user_name']
+        name = request.POST.get('name')
+        openid = request.POST.get('openid')
+        user = models.user.objects.filter(user_name=name, user_openId=openid)
+        if user.count() == 0:
+            return JsonResponse({'msg': 'unLogin'})
         order_list = []
         Order = user[0].USER2ORDER.all()
         for item in Order:
@@ -516,20 +535,28 @@ def store_login(request):
 def store_login_check(request):
     try:
         if request.method == "POST":
-            # 获取用户输入的验证码
-            vcode = request.POST.get('vcode')
-            # 获取session中的验证码
-            vcode_session = request.session.get('verifycode')
-            print(vcode + vcode_session)
-            if(vcode != vcode_session):
-                return JsonResponse({'msg': 'fail_verify'})
+            # # 获取用户输入的验证码
+            # vcode = request.POST.get('vcode')
+            # # 获取session中的验证码
+            # vcode_session = request.session.get('verifycode')
+            # print(vcode + vcode_session)
+            # if(vcode != vcode_session):
+            #     return JsonResponse({'msg': 'fail_verify'})
+            js_code = request.POST.get('js_code', None)
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
+            url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code=" + js_code + "&grant_type=authorization_code";
+            html = urllib.request.Request(url=url, headers=headers)
+            html = urllib.request.urlopen(html)
+            openid = html.data.openid;
+            if openid == "":
+                return JsonResponse({'msg': 'fail'})
             #获取商店名
             name = request.POST.get('name', None)
-            user = models.store.objects.filter(store_name=name)
-            if(user.count() == 0):
+            store = models.store.objects.filter(store_name=name)
+            if(store.count() == 0):
                 return JsonResponse({'msg': 'fail'})
             else:
-                password = user[0].store_password
+                password = store[0].store_password
                 password = password.encode("utf8")
                 password1 = request.POST.get('password',None)
                 password1 = password1.encode("utf8")
@@ -537,6 +564,7 @@ def store_login_check(request):
                 if(password == password1):
                     request.session['store_login']=True
                     request.session['store_name']=name
+                    store[0].update(store_openId=openid)
                     return JsonResponse({'msg': 'ok'})
                 else:
                     return JsonResponse({'msg': 'fail'})
