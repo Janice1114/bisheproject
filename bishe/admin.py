@@ -4,7 +4,7 @@ from django.contrib import admin
 from bishe import models
 
 class userAdmin(admin.ModelAdmin):
-    list_display = ('user_img','user_id','user_name','user_openId','user_phone','user_time')
+    list_display = ('user_img','user_id','user_name','user_phone','user_time')
 
 class storeAdmin(admin.ModelAdmin):
     list_display = ('store_cover','store_id','store_name','store_registerId','store_registerName'
