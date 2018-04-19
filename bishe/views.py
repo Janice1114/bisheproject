@@ -43,7 +43,6 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def verify_code(request):
-    print(request.COOKIES)
     print(request.session.session_key)
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
@@ -83,6 +82,7 @@ def verify_code(request):
     sessionStore = SessionStore();
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
+    print(sessionStore.session_key);
 
     request.session['verifycode'] = rand_str
     print(rand_str);
@@ -97,10 +97,8 @@ def get_session(request):
     js_code = request.POST.get('js_code', None)
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
     url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code="+js_code +"&grant_type=authorization_code";
-    print(url);
     html = urllib.request.Request(url=url, headers=headers)
     html = urllib.request.urlopen(html)
-    print(html)
     return HttpResponse(html)
 
 #网页爬虫模块
@@ -187,7 +185,6 @@ def user_login_check(request):
         if request.method == "POST":
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
-            print(request.COOKIES)
             print(request.session.session_key)
 
             session = Session.objects.get(pk=request.session.session_key)
