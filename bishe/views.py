@@ -80,9 +80,9 @@ def verify_code(request):
     # 10，存入session，用于做进一步验证
     print(request.session.session_key)
     sessionStore = SessionStore();
+    print(sessionStore.session_key);
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
-    sessionStore.session_key = request.session.session_key
     print(sessionStore.session_key);
 
     request.session['verifycode'] = rand_str
@@ -188,6 +188,8 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             print(request.session.session_key)
 
+            sessionStore = SessionStore();
+            print(sessionStore.session_key);
             session = Session.objects.get(pk=request.session.session_key)
             print(session.session_data);
 
