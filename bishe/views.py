@@ -53,7 +53,7 @@ def buile_num(request):
     sessionStore = SessionStore();
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
-    return JsonResponse({'cookie',sessionStore.session_key})
+    return JsonResponse({'cookie':sessionStore.session_key})
 def verify_code(request,key):
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
