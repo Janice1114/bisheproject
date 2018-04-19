@@ -189,6 +189,9 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             print(request.session.session_key)
 
+            sessionStore = SessionStore();
+            sessionStore.save();
+            print(sessionStore.session_key);
             # session = Session.objects.get(pk=request.session.session_key)
             # print(session.session_data);
 
