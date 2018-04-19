@@ -79,6 +79,7 @@ def verify_code(request,session_id):
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
     session = models.session.objects.filter(session_id=session_id)
     rand_str = session[0].number;
+    print(rand_str);
     font = ImageFont.load_default().font
     # 8，构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
