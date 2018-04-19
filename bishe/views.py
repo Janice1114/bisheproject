@@ -225,7 +225,7 @@ def user_login_check(request):
             openid = request.POST.get('openid', None)
 
             user = models.user.objects.filter(user_name=name)
-            if(user.count() == 0):
+            if user.count() == 0:
                 return JsonResponse({'msg': 'fail'})
             else:
                 password = user[0].user_password
