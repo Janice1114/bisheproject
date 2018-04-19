@@ -184,7 +184,14 @@ def user_login(request):
     return render_to_response('user_login.html')
 #判断是否登陆
 def check_user_ifLogin(request):
-    if request.session.get('user_login'):
+    # if request.session.get('user_login'):
+    #     return JsonResponse({'msg': 'login'})
+    # else:
+    #     return JsonResponse({'msg': 'unLogin'})
+    name = request.POST.get('name', None)
+    openid = request.POST.get('openid', None)
+    user = models.user.objects.filter(user_name=name,user_openid=openid)
+    if user.count() == 0:
         return JsonResponse({'msg': 'login'})
     else:
         return JsonResponse({'msg': 'unLogin'})
@@ -526,7 +533,14 @@ def store_register(request):
     # except:
     #     return JsonResponse({'msg': 'system_fail'})
 def check_store_ifLogin(request):
-    if request.session.get('store_login'):
+    # if request.session.get('store_login'):
+    #     return JsonResponse({'msg': 'login'})
+    # else:
+    #     return JsonResponse({'msg': 'unLogin'})
+    name = request.POST.get('name', None)
+    openid = request.POST.get('openid', None)
+    store = models.store.objects.filter(store_name=name,store_openid=openid)
+    if store.count() == 0:
         return JsonResponse({'msg': 'login'})
     else:
         return JsonResponse({'msg': 'unLogin'})
