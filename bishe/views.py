@@ -77,6 +77,7 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     request.session['verifycode'] = rand_str
+    print(rand_str);
     # 11，内存文件操作
     buf = BytesIO()
     # 12，将图片保存在内存中，文件类型为png
@@ -93,7 +94,6 @@ def get_session(request):
     html = urllib.request.urlopen(html)
     print(html)
     return HttpResponse(html)
-
 
 #网页爬虫模块
 def get_message(request):
