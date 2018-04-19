@@ -53,6 +53,8 @@ def buile_num(request):
     sessionStore = SessionStore();
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
+    session = Session.objects.get(pk=sessionStore.session_key)
+    print(session.session_data);
     return JsonResponse({'cookie':sessionStore.session_key})
 def verify_code(request,str):
     # 1，定义变量，用于画面的背景色、宽、高
@@ -73,7 +75,6 @@ def verify_code(request,str):
         # 绘制出噪点
         draw.point(xy, fill=fill)
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
-    print(str)
     session = Session.objects.get(pk=str)
     print(session.session_data);
     rand_str = session.session_data;
