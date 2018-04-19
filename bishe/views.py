@@ -53,7 +53,7 @@ def buile_num(request):
     sessionStore = SessionStore();
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
-    session = Session.objects.get(pk=sessionStore.session_key)
+    session = Session.get(pk=sessionStore.session_key)
     print(session.session_data);
     return JsonResponse({'cookie':sessionStore.session_key})
 def verify_code(request,str):
