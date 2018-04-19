@@ -237,7 +237,7 @@ def user_login_check(request):
                 if(password == password1):
                     request.session['user_login']=True
                     request.session['user_name']=name
-                    user.update(user_openId = openid)
+                    user.update(user_openid = openid)
                     return JsonResponse({'msg': 'ok_user','openid':openid})
                 else:
                     return JsonResponse({'msg': 'fail'})
