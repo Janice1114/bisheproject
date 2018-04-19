@@ -22,8 +22,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from io import BytesIO, StringIO
 
-import django.contrib.session.models
-
 from bishe import models
 from django.template import Context
 import bcrypt
