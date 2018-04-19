@@ -79,9 +79,10 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     print(request.session.session_key)
-    sessionStore = SessionStore(session_key = request.session.session_key);
+    sessionStore = SessionStore();
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
+    sessionStore.session_key = request.session.session_key
     print(sessionStore.session_key);
 
     request.session['verifycode'] = rand_str
