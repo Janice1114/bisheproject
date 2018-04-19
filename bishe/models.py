@@ -15,7 +15,7 @@ class user(models.Model):
     #时间作为id号
     user_id = models.CharField(u'用户id',max_length=50,unique=True,primary_key=True,editable=False)
     user_name = models.TextField(u'用户名',max_length=50,default="",editable=False)
-    user_openId = models.CharField(u'用户openid',max_length=50,default="",editable=False)
+    user_openid = models.CharField(u'用户openid',max_length=50,default="",editable=False)
     user_password = models.TextField(u'用户密码',max_length=50,default="",editable=False)
     user_phone = models.CharField(u'联系方式',max_length=50,default="")
     user_time = models.DateTimeField(u'注册时间', default=datetime.now(),editable=False)
