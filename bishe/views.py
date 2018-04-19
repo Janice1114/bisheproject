@@ -157,7 +157,7 @@ def user_register(request):
                 # 生成用户id
                 time = datetime.now().strftime("%y%m%d%H%M%S%f")
                 user_id = 'U'+ time
-                user_openId = 'OPENID' + time
+                # user_openId = 'OPENID' + time
                 # 通过bcrypt加密用户密码
                 password = request.POST.get('user_password',None)
                 password = password.encode("utf8")
@@ -167,11 +167,11 @@ def user_register(request):
                 user_img = request.FILES.get('user_img',None)
                 #插入到数据库中
                 if(user_img == None):
-                    obj = models.user.objects.create(user_id=user_id, user_openId=user_openId,
+                    obj = models.user.objects.create(user_id=user_id,
                                                      user_name=user_name, user_password=user_password,
                                                      user_phone=user_phone)
                 else:
-                    obj = models.user.objects.create(user_id=user_id,user_openId=user_openId,user_img=user_img,
+                    obj = models.user.objects.create(user_id=user_id,user_img=user_img,
                      user_name=user_name,user_password=user_password,user_phone=user_phone)
                 models.user.save(obj)
                 return JsonResponse({'msg': 'ok'})
@@ -225,6 +225,7 @@ def user_login_check(request):
             openid = request.POST.get('openid', None)
 
             user = models.user.objects.filter(user_name=name)
+            print(user.count())
             if user.count() == 0:
                 return JsonResponse({'msg': 'fail'})
             else:
