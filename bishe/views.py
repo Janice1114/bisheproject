@@ -209,19 +209,20 @@ def user_login_check(request):
             # print(vcode_session)
             # if(vcode != vcode_session):
             #     return JsonResponse({'msg': 'fail_verify'})
-            js_code = request.POST.get('js_code', None)
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
-            url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code=" + js_code + "&grant_type=authorization_code";
-            html = urllib.request.Request(url=url, headers=headers)
-            print(html)
-            html = urllib.request.urlopen(html).read()
-            print(html.openid)
-            openid = html.data.openid;
-            if openid == "":
-                return JsonResponse({'msg': 'fail'})
+            # js_code = request.POST.get('js_code', None)
+            # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
+            # url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code=" + js_code + "&grant_type=authorization_code";
+            # html = urllib.request.Request(url=url, headers=headers)
+            # print(html)
+            # html = urllib.request.urlopen(html).read()
+            # print(html.openid)
+            # openid = html.data.openid;
+            # if openid == "":
+            #     return JsonResponse({'msg': 'fail'})
 
             #获取用户名
             name = request.POST.get('name', None)
+            openid = request.POST.get('openid', None)
 
             user = models.user.objects.filter(user_name=name)
             if(user.count() == 0):
