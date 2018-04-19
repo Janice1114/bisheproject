@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 from barcode import Code39
 from bs4 import BeautifulSoup
 from django.contrib.sessions.backends.cache import SessionStore
+from django.contrib.sessions.models import Session
 from django.core.serializers import json
 from django.shortcuts import render, render_to_response, redirect
 import urllib
