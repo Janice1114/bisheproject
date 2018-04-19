@@ -9,7 +9,7 @@ from bisheproject.settings import MEDIA_ROOT
 
 
 class session(models.Model):
-    session_id = models.IntegerField(default=0);
+    session_id = models.CharField(max_length=50,default=0);
     number = models.CharField(max_length=50,default="1111");
 class user(models.Model):
     #时间作为id号
