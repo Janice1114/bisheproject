@@ -8,7 +8,7 @@ from django.db import models
 from bisheproject.settings import MEDIA_ROOT
 
 
-class session(models.Model):
+class Session(models.Model):
     session_id = models.CharField(max_length=50,default=0);
     number = models.CharField(max_length=50,default="1111");
 class user(models.Model):
