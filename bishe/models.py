@@ -34,6 +34,7 @@ class store(models.Model):
     #注册号
     store_id = models.CharField(u'商店id',max_length=50,unique=True,primary_key=True,editable=False)
     store_name = models.TextField(u'商店名',max_length=50,default="")
+    store_openid = models.CharField(max_length=50,default="",blank=True)
     store_password = models.TextField(u'商店密码', max_length=50, default="", editable=False)
     store_registerId = models.CharField(u'社会信用号', max_length=50, default=0)
     store_registerName = models.CharField(u'注册名字', max_length=50, default="")
@@ -57,7 +58,7 @@ class store(models.Model):
     store_card_up_style = models.TextField(u'等级上升的标准',default=0)#人工或者通过积分
     store_card_message = models.TextField(u'会员卡说明',default="")
     store_card_date = models.TextField(u'有限期',default=0)#0表示无限期，用天数表示
-    store_openid = models.CharField(u'id',max_length=50,default=0)
+    store_cardSetting = models.IntegerField(u'是否进行会员卡设置',default=0)
     store_img1 = models.ImageField(u'图片1', upload_to=get_path,default='storeImage/default.png')
     store_img2 = models.ImageField(u'图片2', upload_to=get_path,blank=True)
     store_img3 = models.ImageField(u'图片3', upload_to=get_path,blank=True)
