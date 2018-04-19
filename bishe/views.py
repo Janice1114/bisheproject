@@ -11,6 +11,7 @@ from math import radians, atan, tan, acos, sin, cos
 from PIL import Image, ImageDraw, ImageFont
 from barcode import Code39
 from bs4 import BeautifulSoup
+from django.contrib.sessions.backends.cache import SessionStore
 from django.core.serializers import json
 from django.shortcuts import render, render_to_response, redirect
 import urllib
@@ -19,6 +20,8 @@ import urllib
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from io import BytesIO, StringIO
+
+from pip._vendor.requests import Session
 
 from bishe import models
 from django.template import Context
@@ -78,6 +81,10 @@ def verify_code(request):
     # 9，用完画笔，释放画笔
     del draw
     # 10，存入session，用于做进一步验证
+    sessionStore = SessionStore();
+    sessionStore["verifycode"] = rand_str
+    sessionStore.save();
+
     request.session['verifycode'] = rand_str
     print(rand_str);
     # 11，内存文件操作
@@ -183,9 +190,10 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             print(request.COOKIES)
             print(request.session.session_key)
-            print(vcode)
-            print(urllib.parse.quote(request.POST.get('name', None)))
-            print(urllib.parse.unquote(request.POST.get('name', None)))
+
+            session = Session.objects.get(pk=request.session.session_key)
+            print(session.session_data);
+
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
             print(vcode_session)
