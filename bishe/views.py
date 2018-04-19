@@ -215,7 +215,7 @@ def user_login_check(request):
             html = urllib.request.Request(url=url, headers=headers)
             print(html)
             html = urllib.request.urlopen(html).read()
-            print(html)
+            print(html.openid)
             openid = html.data.openid;
             if openid == "":
                 return JsonResponse({'msg': 'fail'})
