@@ -51,6 +51,7 @@ def buile_num(request):
         rand_str += str1[random.randrange(0, len(str1))]
 
     session_id = request.session.session_key;
+    print(session_id)
     session = models.session.objects.filter(session_id=session_id)
     if session.count() == 0:
         obj = models.session.objects.create(session_id=session_id,number=rand_str);
