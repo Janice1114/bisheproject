@@ -92,7 +92,7 @@ def get_session(request):
     html = urllib.request.Request(url=url, headers=headers)
     html = urllib.request.urlopen(html)
     print(html)
-    return JsonResponse({'message': html})
+    return HttpResponse(html)
 
 
 #网页爬虫模块
