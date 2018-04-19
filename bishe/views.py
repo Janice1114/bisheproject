@@ -54,7 +54,7 @@ def buile_num(request):
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
     return JsonResponse({'cookie':sessionStore.session_key})
-def verify_code(request,key):
+def verify_code(request,str):
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
     bgcolor = (random.randrange(20, 100), random.randrange(20, 100), 255)
@@ -73,7 +73,8 @@ def verify_code(request,key):
         # 绘制出噪点
         draw.point(xy, fill=fill)
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
-    session = Session.objects.get(pk=key)
+    print(str)
+    session = Session.objects.get(pk=str)
     print(session.session_data);
     rand_str = session.session_data;
     font = ImageFont.load_default().font
