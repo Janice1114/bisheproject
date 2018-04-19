@@ -42,7 +42,19 @@ def createbarcodebase64(request,str):
 def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
-def verify_code(request):
+def buile_num(request):
+    # 5，定义验证码的备选值
+    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
+    # 6，随机选取4个值作为验证码
+    rand_str = ''
+    for i in range(0, 4):
+        rand_str += str1[random.randrange(0, len(str1))]
+    print(rand_str);
+    sessionStore = SessionStore();
+    sessionStore["verifycode"] = rand_str
+    sessionStore.save();
+    return JsonResponse({'cookie',sessionStore.session_key})
+def verify_code(request,key):
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
     bgcolor = (random.randrange(20, 100), random.randrange(20, 100), 255)
@@ -60,13 +72,10 @@ def verify_code(request):
         fill = (random.randrange(0, 255), 255, random.randrange(0, 255))
         # 绘制出噪点
         draw.point(xy, fill=fill)
-    # 5，定义验证码的备选值
-    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
-    # 6，随机选取4个值作为验证码
-    rand_str = ''
-    for i in range(0, 4):
-        rand_str += str1[random.randrange(0, len(str1))]
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
+    session = Session.objects.get(pk=key)
+    print(session.session_data);
+    rand_str = session.session_data;
     font = ImageFont.load_default().font
     # 8，构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
@@ -78,14 +87,6 @@ def verify_code(request):
     # 9，用完画笔，释放画笔
     del draw
     # 10，存入session，用于做进一步验证
-    print(request.session.session_key)
-    sessionStore = SessionStore();
-    sessionStore.save();
-    print(sessionStore.session_key)
-    sessionStore["verifycode"] = rand_str
-    sessionStore.save();
-    print(sessionStore.session_key);
-
     request.session['verifycode'] = rand_str
     print(rand_str);
     # 11，内存文件操作
@@ -189,11 +190,7 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             print(request.session.session_key)
 
-            sessionStore = SessionStore();
-            sessionStore.save();
-            print(sessionStore.session_key);
-            # session = Session.objects.get(pk=request.session.session_key)
-            # print(session.session_data);
+
 
             # 获取session中的验证码
             vcode_session = request.session.get('verifycode')
