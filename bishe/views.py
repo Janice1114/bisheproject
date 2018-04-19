@@ -214,7 +214,8 @@ def user_login_check(request):
             url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code=" + js_code + "&grant_type=authorization_code";
             html = urllib.request.Request(url=url, headers=headers)
             print(html)
-            html = urllib.request.urlopen(html).resd()
+            html = urllib.request.urlopen(html).read()
+            print(html)
             openid = html.data.openid;
             if openid == "":
                 return JsonResponse({'msg': 'fail'})
