@@ -49,14 +49,16 @@ def buile_num(request):
     rand_str = ''
     for i in range(0, 4):
         rand_str += str1[random.randrange(0, len(str1))]
-    print(rand_str);
-    sessionStore = SessionStore();
-    sessionStore["verifycode"] = rand_str
-    sessionStore.save();
-    session = Session.objects.get(pk=sessionStore.session_key)
-    print(session.session_data);
-    return JsonResponse({'cookie':sessionStore.session_key})
-def verify_code(request,str):
+
+    session_id = request.session.session_key;
+    session = models.session.objects.filter(session_id=session_id)
+    if session.count() == 0:
+        obj = models.session.objects.create(session_id=session_id,number=rand_str);
+        obj.save()
+    else:
+        session.update(number=rand_str);
+    return JsonResponse({'msg':'ok'})
+def verify_code(request,session_id):
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
     bgcolor = (random.randrange(20, 100), random.randrange(20, 100), 255)
@@ -75,9 +77,8 @@ def verify_code(request,str):
         # 绘制出噪点
         draw.point(xy, fill=fill)
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
-    session = Session.objects.get(pk=str)
-    print(session.session_data);
-    rand_str = session.session_data;
+    session = models.session.objects.filter(session_id=session_id)
+    rand_str = session[0].number;
     font = ImageFont.load_default().font
     # 8，构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
@@ -191,11 +192,11 @@ def user_login_check(request):
             # 获取用户输入的验证码
             vcode = request.POST.get('vcode')
             print(request.session.session_key)
-
-
-
             # 获取session中的验证码
-            vcode_session = request.session.get('verifycode')
+            # vcode_session = request.session.get('verifycode')
+            session_id = request.session.session_key;
+            session = models.session.objects.filter(session_id=session_id)
+            vcode_session = session[0].number;
             print(vcode_session)
             if(vcode != vcode_session):
                 return JsonResponse({'msg': 'fail_verify'})
