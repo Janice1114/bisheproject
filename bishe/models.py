@@ -8,9 +8,9 @@ from django.db import models
 from bisheproject.settings import MEDIA_ROOT
 
 
-class Session(models.Model):
-    session_id = models.CharField(max_length=50,default=0);
-    number = models.CharField(max_length=50,default="1111");
+# class Session(models.Model):
+#     session_id = models.CharField(max_length=50,default=0);
+#     number = models.CharField(max_length=50,default="1111");
 class user(models.Model):
     #时间作为id号
     user_id = models.CharField(u'用户id',max_length=50,unique=True,primary_key=True,editable=False)
