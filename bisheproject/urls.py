@@ -53,7 +53,7 @@ urlpatterns = [
    #爬虫
    url(r'get_message/',get_message),
    # 生产验证码图片url
-   url(r'verify_code/',verify_code),
+   url(r'verify_code/(\w+)',verify_code),
    #生成条形码
    url(r'createbarcodebase64/(\w+)',createbarcodebase64),
    #会员卡
