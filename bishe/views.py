@@ -88,8 +88,6 @@ def verify_code(request):
     return HttpResponse(buf.getvalue(), 'image/png')
 #url="http://gsxt.gdgs.gov.cn//GSpublicity/GSpublicityList.html?jumpid=rO0ABXQASntzZXJ2aWNlOmVudEluZm8sZW50Tm86N2IyZmJlNGUtMDE0ZC0xMDAwLWUwMTktMGVl%0D%0ANzBhMTEwMTE1LHJlZ09yZzo0NDA5MDF9%0D%0A"
 def get_session(request):
-    print(request.COOKIES)
-    print(request.Meta);
     js_code = request.POST.get('js_code', None)
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
     url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code="+js_code +"&grant_type=authorization_code";
