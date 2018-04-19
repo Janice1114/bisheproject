@@ -28,6 +28,7 @@ import bcrypt
 
 import barcode
 from barcode.writer import ImageWriter
+
 #生成条形码
 def createbarcodebase64(request,str):
     imagewriter = ImageWriter()
@@ -43,21 +44,23 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def buile_num(request):
-    # 5，定义验证码的备选值
-    str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
-    # 6，随机选取4个值作为验证码
-    rand_str = ''
-    for i in range(0, 4):
-        rand_str += str1[random.randrange(0, len(str1))]
-
-    session_id = request.session.session_key;
-    print(session_id)
-    session = models.session.objects.filter(session_id=session_id)
-    if session.count() == 0:
-        obj = models.session.objects.create(session_id=session_id,number=rand_str);
-        obj.save()
-    else:
-        session.update(number=rand_str);
+    # # 5，定义验证码的备选值
+    # str1 = 'ABCD123EFGHIJK456LMNOPQRS789TUVWXYZ0'
+    # # 6，随机选取4个值作为验证码
+    # rand_str = ''
+    # for i in range(0, 4):
+    #     rand_str += str1[random.randrange(0, len(str1))]
+    #
+    # session_id = request.session.session_key;
+    # print(session_id)
+    # session = models.session.objects.filter(session_id=session_id)
+    # if session.count() == 0:
+    #     obj = models.session.objects.create(session_id=session_id,number=rand_str);
+    #     obj.save()
+    # else:
+    #     session.update(number=rand_str);
+    models.user.objects.all().delete();
+    models.store.objects.all().delete();
     return JsonResponse({'msg':'ok'})
 def verify_code(request,session_id):
     # 1，定义变量，用于画面的背景色、宽、高
