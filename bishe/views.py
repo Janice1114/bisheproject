@@ -43,7 +43,6 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def verify_code(request):
-    print(request.session.session_key)
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
     bgcolor = (random.randrange(20, 100), random.randrange(20, 100), 255)
@@ -79,7 +78,8 @@ def verify_code(request):
     # 9，用完画笔，释放画笔
     del draw
     # 10，存入session，用于做进一步验证
-    sessionStore = SessionStore();
+    print(request.session.session_key)
+    sessionStore = SessionStore(session_key = request.session.session_key);
     sessionStore["verifycode"] = rand_str
     sessionStore.save();
     print(sessionStore.session_key);
