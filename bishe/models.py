@@ -34,7 +34,7 @@ class store(models.Model):
     #注册号
     store_id = models.CharField(u'商店id',max_length=50,unique=True,primary_key=True,editable=False)
     store_name = models.TextField(u'商店名',max_length=50,default="")
-    store_openid = models.CharField(max_length=50,default="",blank=True)
+    store_openid = models.CharField(max_length=50,default="2222",blank=True)
     store_password = models.TextField(u'商店密码', max_length=50, default="", editable=False)
     store_registerId = models.CharField(u'社会信用号', max_length=50, default=0)
     store_registerName = models.CharField(u'注册名字', max_length=50, default="")
