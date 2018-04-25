@@ -8,9 +8,13 @@ from django.db import models
 from bisheproject.settings import MEDIA_ROOT
 
 
-# class Session(models.Model):
-#     session_id = models.CharField(max_length=50,default=0);
-#     number = models.CharField(max_length=50,default="1111");
+class mySession(models.Model):
+    id = models.CharField(max_length=50,default=0,unique=True);
+    openId = models.CharField(max_length=50,default="");
+    sessionId = models.CharField(max_length=50,default="");
+    vcode = models.CharField(max_length=50,default="");
+    state = models.CharField(max_length=50,default="unLogin");
+    name = models.CharField(max_length=50,default="");
 class user(models.Model):
     #时间作为id号
     user_id = models.CharField(u'用户id',max_length=50,unique=True,primary_key=True,editable=False)
@@ -50,6 +54,7 @@ class store(models.Model):
     longitude = models.FloatField(u'纬度', default=116.39759036591)
     cityid = models.FloatField(u'cityCode',default=110100)
     order_number = models.IntegerField(u'订单数量',default=0)
+    comment_numbetr = models.IntegerField(u'评论数量',default=1)
     store_card_Dlever = models.CharField(u'初始等级',max_length=50,default="")
     store_card_number = models.CharField(u'会员数量',max_length=50,default=0)
     store_card_prefix = models.CharField(u'会员卡前缀',max_length=50,default="")
@@ -75,6 +80,7 @@ class goods(models.Model):
     goods_message = models.TextField(u'商品信息',default="")
     goods_price = models.FloatField(u'商品价格',default=0.0)
     goods_score = models.FloatField(u'商品分数',default=2.0)
+    goods_comment = models.IntegerField(u'评论人数',default=1)
     goods_left = models.FloatField(u'剩余数量', default=0)
     goods_warn = models.FloatField(u'库存预警数量',default=0)
     goods_plan = models.FloatField(u'计划进货数量',default=0)
@@ -130,10 +136,11 @@ class order(models.Model):
 
 class comment(models.Model):
     comment_id = models.CharField(u'编号',max_length=5,unique=True,primary_key=True,editable=False)
-    comment_order = models.ForeignKey('goods',on_delete=models.CASCADE,related_name="GOODS2COMENT")
+    comment_order = models.ForeignKey('order',on_delete=models.CASCADE,related_name="ORDER2COMENT")
+    comment_goods = models.ManyToManyField('goods',related_name="GOODS2COMENT")
     comment_time = models.DateTimeField(u'评论时间')
     comment_score = models.FloatField(u'评分',default=0.0)
-    comment_message = models.FloatField(u'评论内容',default=0.0)
+    comment_message = models.TextField(u'评论内容',default=0.0)
 
 class stock(models.Model):
     stock_id = models.CharField(u'入库单号',max_length=50,unique=True,primary_key=True,editable=False)
