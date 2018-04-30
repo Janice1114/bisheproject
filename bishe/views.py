@@ -420,7 +420,8 @@ def store_login_check(request):
                 if(password == password1):
                     request.session['store_login']=True
                     request.session['store_name']=name
-                    store[0].update(store_openId=openid)
+                    mySession.update(state="login")
+                    # store[0].update(store_openId=openid)
                     return JsonResponse({'msg': 'ok'})
                 else:
                     return JsonResponse({'msg': 'fail'})
@@ -471,7 +472,7 @@ def store_order(request):
     sessionId = request.POST.get('sessionId', None)
     mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
     if mySession.count() == 0:
-    return JsonResponse({'msg': 'unLogin'})
+        return JsonResponse({'msg': 'unLogin'})
     name = mySession[0].name
     store = models.store.objects.filter(store_name=name)
     order_list = []
@@ -611,7 +612,7 @@ def goodsStock_check(request):
             Goods = store[0].STORE2GOODS.filter(goods_code=goods_code)
             goods_id = ""
             goods_name = ""
-            if Goods.count() == 0
+            if Goods.count() == 0:
                 return JsonResponse({'goods_id': goods_id,'goods_name':goods_name})
             Goods = store[0].STORE2GOODS.all()
             # for i in Goods:
@@ -822,7 +823,7 @@ def buy_goods(request):
             for item in goods_list:
                 if item != "":
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[item])
-                    if(goods[0].goods_left < number_list[index])
+                    if(goods[0].goods_left < number_list[index]):
                        return JsonResponse({'msg': 'fail_number'})
                     goodsList.append(goods[0])
                 index = index + 1;
@@ -874,14 +875,13 @@ def order_commet(request):
     comment_message = request.POST.get('comment_message', None);
     goods_list = comment_goods.split(',');
     number_list = comment_score.split(',')
-    goods_list = order_goods.split(',');
     goodsList = [];
     score_total = 0;
     index = 1;
     for item in Order.order_goods.all():
         goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[item])
         score = (goods[0].goods_score+number_list[index])/(int(goods[0].goods_comment)+1);
-        goods.update(goods_score=score,goods_comment=str(int(goods_comment)+1))
+        goods.update(goods_score=score,goods_comment=str(int(goods[0].goods_comment)+1))
         goodsList.append(goods[0])
         score_total = score_total + number_list[index];
         index = index + 1;
