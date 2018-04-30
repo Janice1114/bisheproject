@@ -9,7 +9,7 @@ from bisheproject.settings import MEDIA_ROOT
 
 
 class mySession(models.Model):
-    id = models.CharField(max_length=50,default=0,unique=True);
+    mySession_id = models.CharField(max_length=50,default=0,unique=True);
     openId = models.CharField(max_length=50,default="");
     sessionId = models.CharField(max_length=50,default="");
     vcode = models.CharField(max_length=50,default="");
