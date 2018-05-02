@@ -658,7 +658,7 @@ def goods_stock(request):
                     goods_name = request.POST.get('goods_name', None)
                     goods_message = request.POST.get('goods_message', None)
                     goods_price = request.POST.get('goods_price', None)
-                    goods_warn = request.POST.get('goosd_warn', None)
+                    goods_warn = request.POST.get('goods_warn', None)
                     goods_left = request.POST.get('goods_left', None)
                     goods_Allowsale = request.POST.get('goods_Allowsale', None)
                     goods_Allowcard = request.POST.get('goods_Allowcard', None)
