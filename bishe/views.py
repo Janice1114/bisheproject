@@ -675,18 +675,20 @@ def goods_stock(request):
                     #id
                     goods_id ='G' + datetime.now().strftime("%y%m%d%H%M%S%f") + goods_store[0].store_registerId
                     #图片
-                    l = len(request.FILES.getlist('goods_img', None))
+                    # l = len(request.FILES.getlist('goods_img', None))
                     [goods_img1, goods_img2, goods_img3,goods_img4,goods_img5] = ["", "", "","",""]
-                    if l == 1:
-                        goods_img1 = request.FILES.get('goods_img', None)
-                    if l == 2:
-                        [goods_img1, goods_img2] = request.FILES.getlist('goods_img', None)
-                    if l == 3:
-                        [goods_img1, goods_img2, goods_img3] = request.FILES.getlist('goods_img', None)
-                    if l == 4:
-                        [goods_img1, goods_img2, goods_img3,goods_img4] = request.FILES.getlist('goods_img', None)
-                    if l == 5:
-                        [goods_img1, goods_img2, goods_img3,goods_img4,goods_img5] = request.FILES.getlist('goods_img', None)
+                    goods_img1 = request.FILES.get('goods_img', None)
+                    print(goods_img1);
+                    # if l == 1:
+                    #     goods_img1 = request.FILES.get('goods_img', None)
+                    # if l == 2:
+                    #     [goods_img1, goods_img2] = request.FILES.getlist('goods_img', None)
+                    # if l == 3:
+                    #     [goods_img1, goods_img2, goods_img3] = request.FILES.getlist('goods_img', None)
+                    # if l == 4:
+                    #     [goods_img1, goods_img2, goods_img3,goods_img4] = request.FILES.getlist('goods_img', None)
+                    # if l == 5:
+                    #     [goods_img1, goods_img2, goods_img3,goods_img4,goods_img5] = request.FILES.getlist('goods_img', None)
                     store_registerId = goods_store[0].store_registerId
                     #插入数据
                     obj_goods = models.goods.objects.create(goods_id=goods_id,
