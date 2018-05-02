@@ -121,7 +121,7 @@ def get_message(request):
             html = urllib.request.urlopen(html).read()
             soup= BeautifulSoup(html,"html.parser")
             content = soup.findAll('span',class_="content")
-            #message = ""
+            message = ""
             i = 0
             type = ""
             for item in content:
@@ -144,7 +144,7 @@ def get_message(request):
                     if(i == 12):
                         message = message + item.text # 地址
                 i = i+1
-        return JsonResponse({'message':message} )
+            return JsonResponse({'message':message} )
 def index(respsonse):
     return HttpResponse(u"welcom")
 #用户注册模块:
@@ -425,8 +425,8 @@ def store_login_check(request):
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
             if mySession.count() == 0:
                 return JsonResponse({'msg': 'unExit'})
-            if mySession[0].vcode != vcode:
-               return JsonResponse({'msg': 'vcode_fail'})
+            # if mySession[0].vcode != vcode:
+            #    return JsonResponse({'msg': 'vcode_fail'})
             #获取商店名
             name = request.POST.get('name', None)
             store = models.store.objects.filter(store_name=name)
@@ -441,7 +441,7 @@ def store_login_check(request):
                 if(password == password1):
                     request.session['store_login']=True
                     request.session['store_name']=name
-                    mySession.update(state="login",name=name)
+                    mySession.update(state="Slogin",name=name)
                     # store[0].update(store_openId=openid)
                     return JsonResponse({'msg': 'ok'})
                 else:
