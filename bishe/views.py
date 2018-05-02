@@ -84,6 +84,7 @@ def verify_code(request,sessionId):
     # request.session['verifycode'] = rand_str
     # openId = request.GET.get('openId',None)
     # sessionId = request.GET.get('sessionId',None)
+    print(sessionId)
     mySession = models.mySession.objects.filter(sessionId=sessionId)
     mySession.update(vcode=rand_str);
     # 11，内存文件操作
