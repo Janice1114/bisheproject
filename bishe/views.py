@@ -185,6 +185,8 @@ def check_user_ifLogin(request):
     openId = request.POST.get('openId', None)
     sessionId = request.POST.get('sessionId', None)
     mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+    if mySession.count() == 0:
+        return JsonResponse({'msg': 'unExit'})
     return JsonResponse({'msg': mySession[0].state})
 def user_login_check(request):
     # try:
@@ -194,6 +196,8 @@ def user_login_check(request):
             openId = request.POST.get('openId', None)
             sessionId = request.POST.get('sessionId', None)
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+            if mySession.count() == 0:
+                return JsonResponse({'msg': 'unExit'})
             if mySession[0].vcode != vcode:
                return JsonResponse({'msg': 'vcode_fail'})
             #获取用户名
@@ -392,6 +396,8 @@ def check_store_ifLogin(request):
     openId = request.POST.get('openId', None)
     sessionId = request.POST.get('sessionId', None)
     mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+    if mySession.count() == 0:
+        return JsonResponse({'msg': 'unExit'})
     return JsonResponse({'msg': mySession[0].state})
 #商店登录模块
 def store_login(request):
@@ -404,6 +410,8 @@ def store_login_check(request):
             openId = request.POST.get('openId', None)
             sessionId = request.POST.get('sessionId', None)
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+            if mySession.count() == 0:
+                return JsonResponse({'msg': 'unExit'})
             if mySession[0].vcode != vcode:
                return JsonResponse({'msg': 'vcode_fail'})
             #获取商店名
