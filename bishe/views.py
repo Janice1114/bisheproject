@@ -44,6 +44,7 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def buile_num(request):
+    models.mySession.objects.all().delete();
     return JsonResponse({'msg':'ok'})
 def verify_code(request,openId):
     # 1，定义变量，用于画面的背景色、宽、高
@@ -192,11 +193,6 @@ def check_user_ifLogin(request):
     print(openId)
     sessionId = request.POST.get('sessionId', None)
     mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
-    print(mySession)
-    for item in models.mySession.objects.all():
-        print(item.openId)
-        if item.openId == openId:
-            print(123)
     if mySession.count() == 0:
         return JsonResponse({'msg': 'unExit'})
     return JsonResponse({'msg': mySession[0].state})
@@ -232,6 +228,7 @@ def user_login_check(request):
                     # request.session['user_login']=True
                     # request.session['user_name']=name
                     mySession.update(state="login")
+                    mySession.update(state="login", name=name)
                     return JsonResponse({'msg': 'ok_user'})
                 else:
                     return JsonResponse({'msg': 'fail'})
@@ -444,7 +441,7 @@ def store_login_check(request):
                 if(password == password1):
                     request.session['store_login']=True
                     request.session['store_name']=name
-                    mySession.update(state="login")
+                    mySession.update(state="login",name=name)
                     # store[0].update(store_openId=openid)
                     return JsonResponse({'msg': 'ok'})
                 else:
