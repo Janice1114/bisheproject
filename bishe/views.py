@@ -609,7 +609,7 @@ def goodsList_show(request):
                     'number': i.goods_number, 'Allowcard': i.goods_Allowcard, 'cardScore': i.goods_cardScore,
                     'message': i.goods_message}
             goods_list.append(data)
-        return JsonResponse({'goods_list': goods_list})
+        return JsonResponse({'goods_list': goods_list,'name':name})
 #商品细节
 def goodsDetail_show(request):
     if request.method == "POST":
