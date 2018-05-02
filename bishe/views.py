@@ -197,9 +197,9 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             openId = request.POST.get('openId', None)
             sessionId = request.POST.get('sessionId', None)
-            print(openId)
-            print(sessionId)
+            print(vcode)
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+            print(mySession[0])
             if mySession.count() == 0:
                 return JsonResponse({'msg': 'unExit'})
             if mySession[0].vcode != vcode:
