@@ -98,7 +98,7 @@ def get_session(request):
     url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx84d665115047ddfe&secret=d3ce24a9b1a60346cf8a0cd2a1687e43&js_code="+js_code +"&grant_type=authorization_code";
     html = urllib.request.Request(url=url, headers=headers)
     html = urllib.request.urlopen(html)
-    data = html.read();
+    data = str(html.read(),encoding='utf-8');
     print(data);
     openId = bcrypt.hashpw(data.openid,bcrypt.gensalt(10))# 10轮的加密
     sessionId = bcrypt.hashpw(data.session_key,bcrypt.gensalt(10))# 10轮的加密
