@@ -665,6 +665,7 @@ def goods_stock(request):
                     goods_cardScore = request.POST.get('goods_cardScore', None)
                     goods_discount = request.POST.get('goods_discount', None)
                     goods_code = request.POST.get('goods_code', None)
+                    goods_img1 = request.FILES.get('goods_img1', None)
                     if goods_warn>goods_left:
                         goods_plan = goods_warn - goods_left
                     else:
@@ -699,7 +700,7 @@ def goods_stock(request):
                                                       goods_warn=float(goods_warn),goods_code=int(goods_code),
                                                       goods_plan=int(goods_plan),goods_Allowsale=int(goods_Allowsale),
                                                       store_registerId=store_registerId,goods_discount=goods_discount,
-                                                      goods_Allowcard=int(goods_Allowcard),goods_cardScore=float(goods_cardScore))
+                                                      goods_Allowcard=int(goods_Allowcard),goods_cardScore=float(goods_cardScore),goods_img1=goods_img1)
                     models.goods.save(obj_goods)
                     #商品入库
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[goods_id])
