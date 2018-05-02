@@ -55,7 +55,7 @@ urlpatterns = [
    # 生产验证码图片url
    url(r'verify_code/(\w+)',verify_code),
    #生成条形码
-   url(r'createbarcodebase64/(\w+)',createbarcodebase64),
+   url(r'createbarcodebase64/(\+)',createbarcodebase64),
    #会员卡
    url(r'card_register',card_register),
    #会员卡设置

@@ -202,6 +202,7 @@ def user_login_check(request):
             openId = request.POST.get('openId', None)
             sessionId = request.POST.get('sessionId', None)
             print(vcode)
+            print(openId)
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
             print(mySession[0].vcode)
             if mySession.count() == 0:
