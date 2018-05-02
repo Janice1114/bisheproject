@@ -665,8 +665,8 @@ def goods_stock(request):
                     goods_cardScore = request.POST.get('goods_cardScore', None)
                     goods_discount = request.POST.get('goods_discount', None)
                     goods_code = request.POST.get('goods_code', None)
-                    if int(goods_warn)>int(goods_left):
-                        goods_plan =int(goods_warn) - int(goods_left)
+                    if goods_warn>goods_left:
+                        goods_plan = goods_warn - goods_left
                     else:
                         goods_plan = 0
                     goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
