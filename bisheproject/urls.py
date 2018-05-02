@@ -24,7 +24,7 @@ from django.urls import path
 from bishe.views import user_register, user_login, get_message, store_register, store_login, store_home, verify_code, \
     user_login_check, user_home, store_login_check, goods_stock, createbarcodebase64, card_register, card_setting, \
     buy_goods, index, store_show, user_user, check_user_ifLogin, check_store_ifLogin, user_order, store_order, \
-    get_session, buile_num, order_state_change,search,goodsList_show
+    get_session, buile_num, order_state_change,search,goodsList_show,goodsStock_check
 
 urlpatterns = [
    #path('admin/', admin.site.urls),
@@ -51,6 +51,7 @@ urlpatterns = [
    url(r'store_home/',store_home),
    url(r'search/',search),
    url(r'goods_stock/',goods_stock),
+   url(r'goodsStock_check/',goodsStock_check),
    #爬虫
    url(r'get_message/',get_message),
    # 生产验证码图片url
