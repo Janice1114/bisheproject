@@ -104,8 +104,12 @@ def get_session(request):
     print(data);
     # openId = bcrypt.hashpw(data['openid'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
     # sessionId = bcrypt.hashpw(data['session_key'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
-    mySession_id = data['session_key'];
-    obj = models.mySession.objects.create(mySession_id=mySession_id,openId=data['openid'],sessionId=data['session_key'])
+    mySession_id = data['openid'];
+    mySession = models.mySession.objects.filter(mySession_id=mySession_id);
+    if mySession.count() == 0:
+        obj = models.mySession.objects.create(mySession_id=mySession_id,openId=data['openid'],sessionId=data['session_key'])
+    else:
+        mySession.update(sessionId=data['session_key']);
     return JsonResponse({'openId':data['openid'] ,'sessionId':data['session_key']})
 #网页爬虫模块
 def get_message(request):
