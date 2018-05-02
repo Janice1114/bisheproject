@@ -191,7 +191,8 @@ def check_user_ifLogin(request):
     openId = request.POST.get('openId', None)
     print(openId)
     sessionId = request.POST.get('sessionId', None)
-    mySession = models.mySession.objects.filter(mySession_id=openId)
+    mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+    print(mySession)
     for item in models.mySession.objects.all():
         print(item.state)
     if mySession.count() == 0:
