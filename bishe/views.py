@@ -81,8 +81,8 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     # request.session['verifycode'] = rand_str
-    openId = request.POST.get('openId',None)
-    sessionId = request.POST.get('sessionId',None)
+    openId = request.GET.get('openId',None)
+    sessionId = request.GET.get('sessionId',None)
     mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
     mySession.update(vcode=rand_str);
     # 11，内存文件操作
@@ -99,7 +99,7 @@ def get_session(request):
     html = urllib.request.Request(url=url, headers=headers)
     html = urllib.request.urlopen(html)
     data = html.read();
-    print(data.openid);
+    print(data);
     openId = bcrypt.hashpw(data.openid,bcrypt.gensalt(10))# 10轮的加密
     sessionId = bcrypt.hashpw(data.session_key,bcrypt.gensalt(10))# 10轮的加密
     mySession_id = data.openid + data.session_key;
