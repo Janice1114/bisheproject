@@ -624,10 +624,14 @@ def goodsDetail_show(request):
         return JsonResponse({'goods_detail': data})
 def goodsStock_check(request):
     if request.method == "POST":
-        goods_code = request.POST.get('goods_code', None)
-        if request.session.get('store_login'):
-            store_name = request.session['store_name']
-            store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
+            goods_code = request.POST.get('goods_code', None)
+            openId = request.POST.get('openId', None)
+            sessionId = request.POST.get('sessionId', None)
+            mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+            if mySession.count() == 0:
+                return JsonResponse({'msg': 'unLogin'})
+            name = mySession[0].name
+            store = models.store.objects.extra(where=['binary store_name=%s'], params=[name])
             if (store.count() == 0):
                 return JsonResponse({'msg': 'fail'})
             Goods = store[0].STORE2GOODS.filter(goods_code=goods_code)
@@ -636,10 +640,7 @@ def goodsStock_check(request):
             if Goods.count() == 0:
                 return JsonResponse({'goods_id': goods_id,'goods_name':goods_name})
             Goods = store[0].STORE2GOODS.all()
-            # for i in Goods:
-            #     if(i.goods_code == goods_code):
-            #         goods_id = i.goods_id
-            #         goods_name = i.goods_name
+
             return JsonResponse({'goods_id': Goods[0].goods_id,'goods_name':Goods[0].goods_name})
 #商品入库模块
 def goods_stock(request):
@@ -648,8 +649,12 @@ def goods_stock(request):
             style = request.POST.get('style', None)
             if(style == "new"):
                 #增加商品
-                if request.session.get('store_login'):
-                    store_name = request.session['store_name']
+                    openId = request.POST.get('openId', None)
+                    sessionId = request.POST.get('sessionId', None)
+                    mySession = models.mySession.objects.filter(openId=openId, sessionId=sessionId)
+                    if mySession.count() == 0:
+                        return JsonResponse({'msg': 'unLogin'})
+                    store_name = mySession[0].name
                     goods_name = request.POST.get('goods_name', None)
                     goods_message = request.POST.get('goods_message', None)
                     goods_price = request.POST.get('goods_price', None)
