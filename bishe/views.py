@@ -696,10 +696,10 @@ def goods_stock(request):
                                                       goods_message=goods_message,
                                                       goods_price=goods_price,
                                                       goods_left=goods_left,
-                                                      goods_warn=goods_warn,goods_code=goods_code,
-                                                      goods_plan=goods_plan,goods_Allowsale=goods_Allowsale,
+                                                      goods_warn=float(goods_warn),goods_code=goods_code,
+                                                      goods_plan=int(goods_plan),goods_Allowsale=int(goods_Allowsale),
                                                       store_registerId=store_registerId,goods_discount=goods_discount,
-                                                      goods_Allowcard=goods_Allowcard,goods_cardScore=goods_cardScore)
+                                                      goods_Allowcard=int(goods_Allowcard),goods_cardScore=float(goods_cardScore))
                     models.goods.save(obj_goods)
                     #商品入库
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[goods_id])
