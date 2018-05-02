@@ -45,7 +45,7 @@ def baseN(num, b):
 #生成验证码
 def buile_num(request):
     return JsonResponse({'msg':'ok'})
-def verify_code(request):
+def verify_code(request,sessionId):
     # 1，定义变量，用于画面的背景色、宽、高
     # random.randrange(20, 100)意思是在20到100之间随机找一个数
     bgcolor = (random.randrange(20, 100), random.randrange(20, 100), 255)
@@ -82,9 +82,9 @@ def verify_code(request):
     del draw
     # 10，存入session，用于做进一步验证
     # request.session['verifycode'] = rand_str
-    openId = request.GET.get('openId',None)
-    sessionId = request.GET.get('sessionId',None)
-    mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+    # openId = request.GET.get('openId',None)
+    # sessionId = request.GET.get('sessionId',None)
+    mySession = models.mySession.objects.filter(sessionId=sessionId)
     mySession.update(vcode=rand_str);
     # 11，内存文件操作
     buf = BytesIO()
