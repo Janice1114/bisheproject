@@ -667,7 +667,7 @@ def goods_stock(request):
                     goods_code = request.POST.get('goods_code', None)
                     goods_img1 = request.FILES.get('goods_img1', None)
                     if int(goods_warn) > int(goods_left):
-                        goods_plan = goods_warn - goods_left
+                        goods_plan = int(goods_warn) - int(goods_left)
                     else:
                         goods_plan = 0
                     goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
