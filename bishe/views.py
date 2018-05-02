@@ -676,7 +676,6 @@ def goods_stock(request):
                     goods_id ='G' + datetime.now().strftime("%y%m%d%H%M%S%f") + goods_store[0].store_registerId
                     #图片
                     # l = len(request.FILES.getlist('goods_img', None))
-                    [goods_img1, goods_img2, goods_img3,goods_img4,goods_img5] = ["", "", "","",""]
                     goods_img1 = request.FILES.get('goods_img', None)
                     print(goods_img1);
                     # if l == 1:
@@ -701,11 +700,7 @@ def goods_stock(request):
                                                       goods_plan=goods_plan,goods_Allowsale=goods_Allowsale,
                                                       store_registerId=store_registerId,goods_discount=goods_discount,
                                                       goods_Allowcard=goods_Allowcard,goods_cardScore=goods_cardScore,
-                                                      goods_img1=goods_img1,
-                                                      goods_img2=goods_img2,
-                                                      goods_img3=goods_img3,
-                                                      goods_img4=goods_img4,
-                                                      goods_img5=goods_img5)
+                                                      goods_img1=goods_img1)
                     models.goods.save(obj_goods)
                     #商品入库
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[goods_id])
