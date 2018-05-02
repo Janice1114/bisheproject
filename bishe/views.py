@@ -190,7 +190,7 @@ def check_user_ifLogin(request):
     #     return JsonResponse({'msg': 'unLogin'})
     openId = request.POST.get('openId', None)
     sessionId = request.POST.get('sessionId', None)
-    mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
+    mySession = models.mySession.objects.filter(mySession_id=openId)
     if mySession.count() == 0:
         return JsonResponse({'msg': 'unExit'})
     return JsonResponse({'msg': mySession[0].state})
