@@ -207,8 +207,8 @@ def user_login_check(request):
             print(mySession[0].vcode)
             if mySession.count() == 0:
                 return JsonResponse({'msg': 'unExit'})
-            if mySession[0].vcode != vcode:
-               return JsonResponse({'msg': 'vcode_fail'})
+            # if mySession[0].vcode != vcode:
+            #    return JsonResponse({'msg': 'vcode_fail'})
             #获取用户名
             name = request.POST.get('name', None)
             print(name)
