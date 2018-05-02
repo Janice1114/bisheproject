@@ -197,6 +197,8 @@ def user_login_check(request):
             vcode = request.POST.get('vcode')
             openId = request.POST.get('openId', None)
             sessionId = request.POST.get('sessionId', None)
+            print(openId)
+            print(sessionId)
             mySession = models.mySession.objects.filter(openId=openId,sessionId=sessionId)
             if mySession.count() == 0:
                 return JsonResponse({'msg': 'unExit'})
@@ -204,6 +206,7 @@ def user_login_check(request):
                return JsonResponse({'msg': 'vcode_fail'})
             #获取用户名
             name = request.POST.get('name', None)
+            print(name)
             user = models.user.objects.filter(user_name=name)
             print(user.count())
             if user.count() == 0:
