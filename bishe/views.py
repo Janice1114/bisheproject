@@ -101,11 +101,11 @@ def get_session(request):
     html = urllib.request.urlopen(html)
     data =  json.loads(str(html.read(),encoding='utf-8'));
     print(data);
-    openId = bcrypt.hashpw(data['openid'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
-    sessionId = bcrypt.hashpw(data['session_key'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
+    # openId = bcrypt.hashpw(data['openid'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
+    # sessionId = bcrypt.hashpw(data['session_key'].encode("utf8"),bcrypt.gensalt(10))# 10轮的加密
     mySession_id = data['openid'] + data['session_key'];
     obj = models.mySession.objects.create(mySession_id=mySession_id,openId=data['openid'],sessionId=data['session_key'])
-    return JsonResponse({'openId':openId,'sessionId':sessionId})
+    return JsonResponse({'openId':data['openid'] ,'sessionId':data['session_key']})
 #网页爬虫模块
 def get_message(request):
         if request.method == "POST":
