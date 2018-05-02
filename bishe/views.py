@@ -666,10 +666,10 @@ def goods_stock(request):
                     goods_discount = request.POST.get('goods_discount', None)
                     goods_code = request.POST.get('goods_code', None)
                     goods_img1 = request.FILES.get('goods_img1', None)
-                    if goods_warn>goods_left:
-                        goods_plan = goods_warn - goods_left
-                    else:
-                        goods_plan = 0
+                    # if int(goods_warn) > int(goods_left):
+                    #     goods_plan = goods_warn - goods_left
+                    # else:
+                    #     goods_plan = 0
                     goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
                     if(goods_store.count() == 0):
                         return JsonResponse({'msg': 'noStore'})
@@ -677,8 +677,8 @@ def goods_stock(request):
                     goods_id ='G' + datetime.now().strftime("%y%m%d%H%M%S%f") + goods_store[0].store_registerId
                     #图片
                     # l = len(request.FILES.getlist('goods_img', None))
-                    goods_img1 = request.FILES.get('goods_img', None)
-                    print(goods_img1);
+                    # goods_img1 = request.FILES.get('goods_img', None)
+                    # print(goods_img1);
                     # if l == 1:
                     #     goods_img1 = request.FILES.get('goods_img', None)
                     # if l == 2:
