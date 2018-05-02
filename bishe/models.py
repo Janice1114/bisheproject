@@ -76,7 +76,7 @@ class goods(models.Model):
     # 每个商店对应多个商品
     goods_store=models.ForeignKey('store',on_delete=models.CASCADE,related_name="STORE2GOODS")
     goods_name = models.CharField(u'商品名称',max_length=50)
-    goods_code = models.IntegerField(u'商品条形码',default=0)
+    goods_code = models.TextField(u'商品条形码',default=0)
     goods_message = models.TextField(u'商品信息',default="")
     goods_price = models.FloatField(u'商品价格',default=0.0)
     goods_score = models.FloatField(u'商品分数',default=2.0)

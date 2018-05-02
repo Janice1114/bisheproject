@@ -697,7 +697,7 @@ def goods_stock(request):
                                                       goods_message=goods_message,
                                                       goods_price=float(goods_price),
                                                       goods_left=float(goods_left),
-                                                      goods_warn=float(goods_warn),goods_code=int(goods_code),
+                                                      goods_warn=float(goods_warn),goods_code=goods_code,
                                                       goods_plan=int(goods_plan),goods_Allowsale=int(goods_Allowsale),
                                                       store_registerId=store_registerId,goods_discount=goods_discount,
                                                       goods_Allowcard=int(goods_Allowcard),goods_cardScore=float(goods_cardScore),goods_img1=goods_img1)
