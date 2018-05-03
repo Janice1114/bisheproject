@@ -667,6 +667,7 @@ def goods_stock(request):
                     goods_discount = request.POST.get('goods_discount', None)
                     goods_code = request.POST.get('goods_code', None)
                     goods_img1 = request.FILES.get('goods_img1', None)
+                    print(goods_img1)
                     if int(goods_warn) > int(goods_left):
                         goods_plan = int(goods_warn) - int(goods_left)
                     else:
@@ -712,7 +713,7 @@ def goods_stock(request):
                     obj_stock = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],
                                                             stock_price=stock_price,stock_number=goods_left)
                     models.stock.save(obj_stock)
-                    return JsonResponse({'msg': 'ok'})
+                    return JsonResponse({'msg': 'ok','goods_id':goods_id})
             #入库
             else:
                 goods_id =request.POST.get('goods_id', None)
