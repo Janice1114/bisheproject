@@ -516,7 +516,7 @@ def store_order(request):
             goods_name = goods_name + ',' + i.goods_name;
         print(goods_name)
         goods_name = goods_name.split(',').pop(0);
-        print(goods_name)
+        print(item.order_discount)
         order_discount = item.order_discount.split(',').pop(0);
         order_number = item.order_number.split(',').pop(0);
         order_allowCard = item.order_allowCard.split(',').pop(0);
