@@ -44,6 +44,7 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def buile_num(request):
+    models.goods.user.all().delete();
     models.goods.objects.all().delete();
     models.stock.objects.all().delete();
     return JsonResponse({'msg':'ok'})
@@ -167,6 +168,7 @@ def user_register(request):
                 user_password=user_password.decode('utf-8')
                 user_phone=request.POST.get('user_phone',None)
                 user_img = request.FILES.get('user_img',None)
+                print(user_img)
                 #插入到数据库中
                 if(user_img == None):
                     obj = models.user.objects.create(user_id=user_id,
