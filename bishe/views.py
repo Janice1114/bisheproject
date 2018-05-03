@@ -44,8 +44,8 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def buile_num(request):
-    models.goods.mySession.all().delete();
-    models.goods.user.all().delete();
+    models.mySession.objects.all().delete();
+    models.user.objects.all().delete();
     models.goods.objects.all().delete();
     models.stock.objects.all().delete();
     return JsonResponse({'msg':'ok'})
