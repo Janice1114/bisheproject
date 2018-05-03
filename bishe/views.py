@@ -515,16 +515,17 @@ def store_order(request):
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
         goods_name = goods_name.split(',').pop(0);
+        print(goods_name)
         order_discount = item.order_discount.split(',').pop(0);
         order_number = item.order_number.split(',').pop(0);
         order_allowCard = item.order_allowCard.split(',').pop(0);
         order_priceList = item.order_priceList.split(',').pop(0);
         data = {
-            'name': item.order_user.store_user,
+            'name': item.order_user.user_name,
             'id': item.order_id,
             'data': item.order_time,
             'price': item.order_price,
-            'state': item.state,
+            'state': item.order_state,
             'pay': item.order_pay,
             'goods': goods_name,
             'discount': order_discount,
