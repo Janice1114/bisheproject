@@ -511,6 +511,7 @@ def store_order(request):
     Order = store[0].STORE2ORDER.all()
     for item in Order:
         goods = item.order_goods.all();
+        print(goods)
         goods_name = "";
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
@@ -518,6 +519,7 @@ def store_order(request):
         goods_name = goods_name.split(',').pop(0);
         print(item.order_discount)
         order_discount = item.order_discount.split(',').pop(0);
+        print(order_discount)
         order_number = item.order_number.split(',').pop(0);
         order_allowCard = item.order_allowCard.split(',').pop(0);
         order_priceList = item.order_priceList.split(',').pop(0);
