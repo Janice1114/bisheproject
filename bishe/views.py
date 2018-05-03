@@ -575,9 +575,9 @@ def store_count(request):
         name = mySession[0].name
         store = models.store.objects.filter(store_name=name)
         time = datetime.now()
-        expend = [0];
-        income = [0];
-        gain = [0];
+        expend = [0,0,0,0,0,0,0,0,0,0,0,0];
+        income = [0,0,0,0,0,0,0,0,0,0,0,0];
+        gain = [0,0,0,0,0,0,0,0,0,0,0,0];
         Order = store[0].STORE2ORDER.all()
         for item in Order:
             if time.year == item.order_time.year:
