@@ -641,8 +641,6 @@ def goodsStock_check(request):
             goods_name = ""
             if Goods.count() == 0:
                 return JsonResponse({'goods_id': goods_id,'goods_name':goods_name})
-            Goods = store[0].STORE2GOODS.all()
-
             return JsonResponse({'goods_id': Goods[0].goods_id,'goods_name':Goods[0].goods_name})
 #商品入库模块
 def goods_stock(request):
