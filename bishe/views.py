@@ -594,6 +594,7 @@ def store_count(request):
         index = 0;
         for item in expend:
             gain[index] = income[index] - item;
+            index = index + 1;
         return JsonResponse({'expend':expend,'income':income,'gain':gain});
 #商品列表
 def goodsList_show(request):
