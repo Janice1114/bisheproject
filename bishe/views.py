@@ -714,7 +714,7 @@ def goods_stock(request):
                     obj_stock = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],
                                                             stock_price=stock_price,stock_number=goods_left)
                     models.stock.save(obj_stock)
-                    return JsonResponse({'msg':'ok','goods_id':goods_id})
+                    return JsonResponse({'goods_id':goods_id})
             #入库
             else:
                 goods_id =request.POST.get('goods_id', None)
