@@ -266,7 +266,7 @@ def user_home(request):
             c2 = (sin(xx) + xx) * (sin(pA) - sin(pB)) ** 2 / sin(xx / 2) ** 2
             dr = flatten / 8 * (c1 - c2)
             distance = ra * (xx + dr)
-            data = {"name":item.store_name,"distance":distance,"number":item.order_number,'score':item.store_score,'lat':item.latitude,'lng':item.longitude}
+            data = {"name":item.store_name,"distance":int(distance),"number":item.order_number,'score':item.store_score,'lat':item.latitude,'lng':item.longitude}
             store_list.append(data)
     return JsonResponse({'name':name,'store_list':store_list})
     # else:
