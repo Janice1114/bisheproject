@@ -305,7 +305,7 @@ def user_user(request):
         return JsonResponse({'msg': 'unLogin'})
     name = mySession[0].name
     user = models.user.objects.filter(user_name=name)
-    user_message = {'name':user[0].user_name,'phone':user[0].user_phone}
+    user_message = {'name':user[0].user_name,'phone':user[0].user_phone,'image':user[0].user_img}
     card_list = []
     Cards = user[0].USER2CARD.all()
     for item in Cards:
