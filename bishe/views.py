@@ -604,6 +604,7 @@ def goodsList_show(request):
         Goods = store[0].STORE2GOODS.all()
         goods_list = []
         for i in Goods:
+            print(i.goods_img1.url)
             data = {'name': i.goods_name, 'price': i.goods_price, 'left': i.goods_left, 'id': i.goods_id,
                     'score': i.goods_score, 'discount': i.goods_discount,'warn':i.goods_warn,'plan':i.goods_plan,
                     'number': i.goods_number, 'Allowcard': i.goods_Allowcard, 'cardScore': i.goods_cardScore,
