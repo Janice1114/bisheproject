@@ -609,7 +609,7 @@ def goodsList_show(request):
             data = {'name': i.goods_name, 'price': i.goods_price, 'left': i.goods_left, 'id': i.goods_id,
                     'score': i.goods_score, 'discount': i.goods_discount,'warn':i.goods_warn,'plan':i.goods_plan,
                     'number': i.goods_number, 'Allowcard': i.goods_Allowcard, 'cardScore': i.goods_cardScore,
-                    'message': i.goods_message,'image':i.goods_img1.url}
+                    'message': i.goods_message,'image':i.goods_img1}
             goods_list.append(data)
         return JsonResponse({'goods_list': goods_list,'name':name})
 #商品细节
