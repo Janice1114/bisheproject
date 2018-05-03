@@ -250,6 +250,7 @@ def user_home(request):
     store = models.store.objects.filter()
     store_list = []
     for item in store:
+        print(item.cityid)
         if cityid == item.cityid:
             ra = 6378.140  # 赤道半径
             rb = 6356.755  # 极半径 （km）
