@@ -583,7 +583,7 @@ def store_count(request):
             if time.year == item.order_time.year:
                 month = time.month;
                 income[month] = income[month]  + item.order_price
-        Stock = store[0].GOODS2STOCK.all()
+        Stock = store[0].STORE2STOCK.all()
         for item in Stock:
             if time.year == item.stock_time.year:
                 month = time.month;
@@ -648,14 +648,15 @@ def goods_stock(request):
     # try:
         if request.method == "POST":
             style = request.POST.get('style', None)
+            openId = request.POST.get('openId', None)
+            sessionId = request.POST.get('sessionId', None)
+            mySession = models.mySession.objects.filter(openId=openId, sessionId=sessionId)
+            if mySession.count() == 0:
+                return JsonResponse({'msg': 'unLogin'})
+            store_name = mySession[0].name
+            goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
             if(style == "new"):
                 #增加商品
-                    openId = request.POST.get('openId', None)
-                    sessionId = request.POST.get('sessionId', None)
-                    mySession = models.mySession.objects.filter(openId=openId, sessionId=sessionId)
-                    if mySession.count() == 0:
-                        return JsonResponse({'msg': 'unLogin'})
-                    store_name = mySession[0].name
                     goods_name = request.POST.get('goods_name', None)
                     goods_message = request.POST.get('goods_message', None)
                     goods_price = request.POST.get('goods_price', None)
@@ -672,7 +673,6 @@ def goods_stock(request):
                         goods_plan = int(goods_warn) - int(goods_left)
                     else:
                         goods_plan = 0
-                    goods_store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
                     if(goods_store.count() == 0):
                         return JsonResponse({'msg': 'noStore'})
                     #id
@@ -710,14 +710,13 @@ def goods_stock(request):
                         return JsonResponse({'msg': 'noGoods'})
                     stock_id = "S" + datetime.now().strftime("%y%m%d%H%M%S%f") + store_registerId
                     stock_price = request.POST.get('stock_price', None)
-                    obj_stock = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],
+                    obj_stock = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],stock_store=goods_store[0],
                                                             stock_price=stock_price,stock_number=goods_left)
                     models.stock.save(obj_stock)
                     return JsonResponse({'goods_id':goods_id})
             #入库
             else:
                 goods_id =request.POST.get('goods_id', None)
-                print(goods_id)
                 stock_number = request.POST.get('stock_number', None)
                 stock_price = request.POST.get('stock_price', None)
                 goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[goods_id])
@@ -735,7 +734,7 @@ def goods_stock(request):
                         goods_plan = 0
                     #订单号
                     stock_id = "S"+ datetime.now().strftime("%y%m%d%H%M%S%f")+store_registerId
-                    obj = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],
+                    obj = models.stock.objects.create(stock_id=stock_id,stock_goods=goods[0],stock_store=goods_store[0],
                                                       stock_price=stock_price,stock_number=stock_number)
                     obj.save()
                     models.goods.objects.filter(goods_id=goods_id).update(goods_left=str(sum),goods_plan=goods_plan)
