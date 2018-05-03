@@ -150,6 +150,11 @@ def get_message(request):
             return JsonResponse({'message':message} )
 def index(respsonse):
     return HttpResponse(u"welcom")
+def login_out(request):
+    openId = request.POST.get('openId', None)
+    sessionId = request.POST.get('sessionId', None)
+    mySession = models.mySession.objects.filter(openId=openId, sessionId=sessionId).delete()
+    return JsonResponse({'msg': 'ok'})
 #用户注册模块:
 def user_register(request):
     # try:
