@@ -336,7 +336,7 @@ def user_order(request):
         order_priceList = item.order_priceList.split(',').pop(0);
         data = {
             'name':item.order_store.store_name,
-            'id':item.oorder_id,
+            'id':item.order_id,
             'data':item.order_time,
             'price':item.order_price,
             'state':item.state,
