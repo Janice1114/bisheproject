@@ -623,7 +623,7 @@ def goodsDetail_show(request):
         data = {'name': goods[0].goods_name, 'price': goods[0].goods_price, 'left': goods[0].goods_left, 'id': goods[0].goods_id,
                 'score': goods[0].goods_score, 'discount': goods[0].goods_discount,
                 'number': goods[0].goods_number, 'Allowcard': goods[0].goods_Allowcard, 'cardScore': goods[0].goods_cardScore,
-                'message': goods[0].goods_message}
+                'message': goods[0].goods_message,'image':goods[0].goods_img1.url}
         return JsonResponse({'goods_detail': data})
 def goodsStock_check(request):
     if request.method == "POST":
