@@ -39,6 +39,7 @@ urlpatterns = [
    url(r'store_show/',store_show),
    url(r'user_show/',user_user),
    url(r'user_order/',user_order),
+url(r'user_user/',user_user),
    url(r'store_order/',store_order),
 url(r'login_out/',login_out),
    url(r'store_goods/',store_goods),
