@@ -339,7 +339,7 @@ def user_order(request):
             'id':item.order_id,
             'data':item.order_time,
             'price':item.order_price,
-            'state':item.state,
+            'state':item.order_state,
             'pay':item.order_pay,
             'goods': goods_name,
             'discount': order_discount,
