@@ -860,7 +860,7 @@ def buy_goods(request):
             for item in goods_list:
                 if item != "":
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[item])
-                    if(goods[0].goods_left < number_list[index]):
+                    if(int(goods[0].goods_left) < int(number_list[index])):
                        return JsonResponse({'msg': 'fail_number'})
                     goodsList.append(goods[0])
                 index = index + 1;
