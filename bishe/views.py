@@ -540,7 +540,7 @@ def store_goods(request):
         goods_name = []
         goods_id = []
         Order = store[0].STORE2ORDER.all()
-        time = datetime.datetime.now()
+        time = datetime.now()
         sum = 0;
         for item in Order:
             if time.month == item.order_time.number:
@@ -574,7 +574,7 @@ def store_count(request):
             return JsonResponse({'msg': 'unLogin'})
         name = mySession[0].name
         store = models.store.objects.filter(store_name=name)
-        time = datetime.datetime.now()
+        time = datetime.now()
         expend = [0];
         income = [0];
         gain = [0];
