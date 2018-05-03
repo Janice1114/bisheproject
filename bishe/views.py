@@ -45,6 +45,7 @@ def baseN(num, b):
 #生成验证码
 def buile_num(request):
     models.goods.objects.all().delete();
+    models.order.objects.all().delete();
     return JsonResponse({'msg':'ok'})
 def verify_code(request,openId):
     # 1，定义变量，用于画面的背景色、宽、高
