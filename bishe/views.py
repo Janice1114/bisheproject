@@ -247,9 +247,11 @@ def user_home(request):
     longitude = request.POST.get('longitude')
     latitude = request.POST.get('latitude')
     cityid = request.POST.get('cityid')
-    store = models.store.objects.filter(cityid = cityid)
+    store = models.store.objects.filter()
     store_list = []
     for item in store:
+        print(item.cityid)
+        if int(cityid) == int(item.cityid):
             ra = 6378.140  # 赤道半径
             rb = 6356.755  # 极半径 （km）
             flatten = (ra - rb) / ra  # 地球偏率
