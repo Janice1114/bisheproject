@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path
-
+from django.views.static import serve
 from bishe.views import user_register, user_login, get_message, store_register, store_login, store_home, verify_code, \
     user_login_check, user_home, store_login_check, goods_stock, createbarcodebase64, card_register, card_setting, \
     buy_goods, index, store_show, user_user, check_user_ifLogin, check_store_ifLogin, user_order, store_order, \
@@ -64,6 +64,7 @@ urlpatterns = [
    url(r'card_setting',card_setting),
    #购买
    url(r'buy_goods', buy_goods),
+   url(r'media/(?P<path>.*)$',serve, {'document_root': settings.MEDIA_ROOT})
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
