@@ -584,10 +584,13 @@ def store_count(request):
                 month = time.month;
                 income[month] = income[month]  + item.order_price
         Stock = store[0].STORE2STOCK.all()
+        print(time.year)
+        print(item.stock_time.year)
         for item in Stock:
             if time.year == item.stock_time.year:
                 month = time.month;
                 expend[month] = expend[month]  + item.stock_price*item.stock_number
+                print(item.stock_price*item.stock_number)
         index = 0;
         for item in expend:
             gain[index] = income[index] - item;
