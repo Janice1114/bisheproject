@@ -145,7 +145,7 @@ class comment(models.Model):
 class stock(models.Model):
     stock_id = models.CharField(u'入库单号',max_length=50,unique=True,primary_key=True,editable=False)
     stock_goods = models.ForeignKey('goods',on_delete=models.CASCADE,related_name="GOODS2STOCK")
-    stock_store = models.ForeignKey('store', on_delete=models.CASCADE, related_name="STORE2STOCK")
+    stock_store = models.ForeignKey('store', on_delete=models.CASCADE, related_name="STORE2STOCK",default="")
     stock_price = models.FloatField(u'入库商品价格',default=0)
     stock_number = models.IntegerField(u'入库数量',default=0)
     stock_time = models.DateTimeField(u'入库日期',default=datetime.now())
