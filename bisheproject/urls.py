@@ -63,8 +63,8 @@ urlpatterns = [
    #会员卡设置
    url(r'card_setting',card_setting),
    #购买
-   url(r'buy_goods', buy_goods)
-
+   url(r'buy_goods', buy_goods),
+   url(r'media/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.MEDIA_ROOT})
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
