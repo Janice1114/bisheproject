@@ -245,6 +245,7 @@ def user_home(request):
     if mySession.count() == 0:
         return JsonResponse({'msg': 'unLogin'})
     name = mySession[0].name
+    user = models.user.objects.filter(user_name=name)
     longitude = request.POST.get('longitude')
     latitude = request.POST.get('latitude')
     cityid = request.POST.get('cityid')
@@ -267,9 +268,9 @@ def user_home(request):
             c2 = (sin(xx) + xx) * (sin(pA) - sin(pB)) ** 2 / sin(xx / 2) ** 2
             dr = flatten / 8 * (c1 - c2)
             distance = ra * (xx + dr)
-            data = {"name":item.store_name,"distance":int(distance),"number":item.order_number,'score':item.store_score,'lat':item.latitude,'lng':item.longitude}
+            data = {"name":item.store_name,"distance":int(distance),"number":item.order_number,'score':item.store_score,'lat':item.latitude,'lng':item.longitude,'image':item.store_cover.url}
             store_list.append(data)
-    return JsonResponse({'name':name,'store_list':store_list})
+    return JsonResponse({'name':name,'image':user[0].user_img.url,'store_list':store_list})
     # else:
     #     return JsonResponse({'msg': 'unLogin'})
 def store_show(request):
