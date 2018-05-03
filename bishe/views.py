@@ -255,10 +255,10 @@ def user_home(request):
             ra = 6378.140  # 赤道半径
             rb = 6356.755  # 极半径 （km）
             flatten = (ra - rb) / ra  # 地球偏率
-            rad_lat_A = radians(latitude)
-            rad_lng_A = radians(longitude)
-            rad_lat_B = radians(item.latitude)
-            rad_lng_B = radians(item.longitude)
+            rad_lat_A = radians(float(latitude))
+            rad_lng_A = radians(float(longitude))
+            rad_lat_B = radians(float(item.latitude))
+            rad_lng_B = radians(float(item.longitude))
             pA = atan(rb / ra * tan(rad_lat_A))
             pB = atan(rb / ra * tan(rad_lat_B))
             xx = acos(sin(pA) * sin(pB) + cos(pA) * cos(pB) * cos(rad_lng_A - rad_lng_B))
