@@ -514,6 +514,7 @@ def store_order(request):
         goods_name = "";
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
+        print(goods_name)
         goods_name = goods_name.split(',').pop(0);
         print(goods_name)
         order_discount = item.order_discount.split(',').pop(0);
@@ -553,7 +554,7 @@ def store_goods(request):
         time = datetime.now()
         sum = 0;
         for item in Order:
-            if time.month == item.order_time.number:
+            if time.month == item.order_time.month:
                 order_number = item.order_number
                 order_number = order_number.split(',').pop(0)
                 goods = item.order_goods.all();
