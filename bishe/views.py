@@ -223,6 +223,7 @@ def user_login_check(request):
             #    return JsonResponse({'msg': 'vcode_fail'})
             #获取用户名
             name = request.POST.get('name', None)
+            print(name)
             user = models.user.objects.extra(where=['binary user_name=%s'], params=[name])
             print(user.count())
             if user.count() == 0:
