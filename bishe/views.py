@@ -73,6 +73,7 @@ def verify_code(request,openId):
     rand_str = ''
     for i in range(0, 4):
         rand_str += str1[random.randrange(0, len(str1))]
+    rand_str = openId;##################################################
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
     font = ImageFont.load_default().font
     # 8，构造字体颜色
@@ -223,6 +224,8 @@ def user_login_check(request):
             #获取用户名
             name = request.POST.get('name', None)
             print(name)
+            print(name.encode("utf8"))
+            print(name.decode("utf8"))
             user = models.user.objects.filter(user_name=name)
             print(user.count())
             if user.count() == 0:
@@ -860,6 +863,7 @@ def buy_goods(request):
             index = 0;
             number_list = order_number.split(',')
             goods_list = order_goods.split(',');
+            print(goods_list);
             goodsList = [];
             for item in goods_list:
                 if item != "":
@@ -869,6 +873,7 @@ def buy_goods(request):
                     goodsList.append(goods[0])
                 index = index + 1;
             index = 0;
+            print(goodsList);
             for item in goods_list:
                 if item != "":
                     goods = models.goods.objects.extra(where=['binary goods_id=%s'], params=[item]);
