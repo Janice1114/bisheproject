@@ -223,10 +223,7 @@ def user_login_check(request):
             #    return JsonResponse({'msg': 'vcode_fail'})
             #获取用户名
             name = request.POST.get('name', None)
-            print(name)
-            print(name.encode("utf8"))
-            print(name.decode("utf8"))
-            user = models.user.objects.filter(user_name=name)
+            user = models.user.objects.extra(where=['binary user_name=%s'], params=[name])
             print(user.count())
             if user.count() == 0:
                 return JsonResponse({'msg': 'fail'})
@@ -443,7 +440,7 @@ def store_login_check(request):
             #    return JsonResponse({'msg': 'vcode_fail'})
             #获取商店名
             name = request.POST.get('name', None)
-            store = models.store.objects.filter(store_name=name)
+            store = models.store.objects.extra(where=['binary store_name=%s'], params=[name])
             if(store.count() == 0):
                 return JsonResponse({'msg': 'fail'})
             else:
