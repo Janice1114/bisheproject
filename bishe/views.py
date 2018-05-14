@@ -162,7 +162,9 @@ def user_register(request):
         if request.method == "POST":
             #判断用户名是否被注册
             user_name = request.POST.get('user_name',None)
+            print(user_name);
             result = models.user.objects.extra(where=['binary user_name=%s'], params=[user_name])
+            print(result);
             if(result.count() == 0):
                 # 生成用户id
                 time = datetime.now().strftime("%y%m%d%H%M%S%f")
