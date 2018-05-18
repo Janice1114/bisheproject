@@ -574,6 +574,7 @@ def store_goods(request):
                 goods = item.order_goods.all();
                 TheIndex = 0;
                 for i in goods:
+                    print(goods_id)
                     currIndex = goods_id.index(i.goods_id)
                     Index = 0;
                     if currIndex == -1:
@@ -582,7 +583,6 @@ def store_goods(request):
                                 break;
                             Index = Index + 1;
                         goods_id.insert(Index,i.goods_id);
-                        print(goods_id);
                         goods_name.insert(Index,i.goods_name)
                         goods_number.insert(Index,order_number[Index])
                         goods_left.insert(Index,i.goods_left)
