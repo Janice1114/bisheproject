@@ -341,8 +341,8 @@ def user_order(request):
         order_allowCard = item.order_allowCard.split(',').pop(0);
         order_priceList = item.order_priceList.split(',').pop(0);
         hour = int(item.order_time.hour)+8;
-        time = item.order_time.year+'-'+item.order_time.month+"-"+item.order_time.day+","\
-               +item.order_time.hour+","+item.order_time.minute+','+item.order_time.second;
+        time = str(item.order_time.year)+'-'+str(item.order_time.month)+"-"+str(item.order_time.day)+","\
+               +str(hour)+","+str(item.order_time.minute)+','+str(item.order_time.second);
         data = {
             'image':item.order_store.store_img1.url,
             'name':item.order_store.store_name,
