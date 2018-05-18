@@ -588,7 +588,7 @@ def store_goods(request):
                             Index = Index + 1;
                         goods_id.insert(Index,i.goods_id);
                         goods_name.insert(Index,i.goods_name)
-                        goods_number.insert(Index,order_number[Index])
+                        goods_number.insert(Index,order_number[Index+1])
                         goods_left.insert(Index,i.goods_left)
                     else:
                         goods_number[currIndex] = goods_number[currIndex]+order_number[TheIndex]
