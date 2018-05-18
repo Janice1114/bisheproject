@@ -329,11 +329,10 @@ def user_order(request):
     Order = user[0].USER2ORDER.all()
     for item in Order:
         goods = item.order_goods.all();
-        print(goods)
         goods_name = "";
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
-        print(goods_name)
+        print(goods_name.split(','))
         goods_name = goods_name.split(',').pop(0);
         print(goods_name)
         order_discount = item.order_discount.split(',').pop(0);
