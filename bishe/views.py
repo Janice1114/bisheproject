@@ -593,10 +593,10 @@ def store_goods(request):
                         goods_left.insert(Index,i.goods_left)
                         image.insert(Index,i.goods_img1.url)
                     else:
-                        goods_number[currIndex] = goods_number[currIndex]+order_number[TheIndex+1]
+                        goods_number[currIndex] = int(goods_number[currIndex])+int(order_number[TheIndex+1])
                     sum = sum+ int(order_number[TheIndex+1]);
                     TheIndex = TheIndex + 1;
-        return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,
+        return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,image:image,
                                'goods_left':goods_left,'goods_number':goods_number,'sum':sum})
 def store_count(request):
         openId = request.POST.get('openId', None)
