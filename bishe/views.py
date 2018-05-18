@@ -564,6 +564,7 @@ def store_goods(request):
         goods_left = []
         goods_name = []
         goods_id = []
+        image = []
         Order = store[0].STORE2ORDER.all()
         time = datetime.now()
         sum = 0;
@@ -590,8 +591,9 @@ def store_goods(request):
                         goods_name.insert(Index,i.goods_name)
                         goods_number.insert(Index,order_number[Index+1])
                         goods_left.insert(Index,i.goods_left)
+                        image.insert(Index,i.goods_img1.url)
                     else:
-                        goods_number[currIndex] = goods_number[currIndex]+order_number[TheIndex]
+                        goods_number[currIndex] = goods_number[currIndex]+order_number[TheIndex+1]
                     sum = sum+ int(order_number[TheIndex+1]);
                     TheIndex = TheIndex + 1;
         return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,
