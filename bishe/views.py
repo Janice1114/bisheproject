@@ -333,7 +333,7 @@ def user_order(request):
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
         print(goods_name.split(','))
-        goods_name = goods_name.split(',').pop(0);
+        goods_name = goods_name.split(',').remove("");
         print(goods_name)
         order_discount = item.order_discount.split(',').remove("");
         order_number = item.order_number.split(',').remove("");
