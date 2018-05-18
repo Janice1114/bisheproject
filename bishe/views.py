@@ -596,7 +596,7 @@ def store_goods(request):
                         goods_number[currIndex] = int(goods_number[currIndex])+int(order_number[TheIndex+1])
                     sum = sum+ int(order_number[TheIndex+1]);
                     TheIndex = TheIndex + 1;
-        return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,image:image,
+        return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,'image':image,
                                'goods_left':goods_left,'goods_number':goods_number,'sum':sum})
 def store_count(request):
         openId = request.POST.get('openId', None)
