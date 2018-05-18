@@ -889,7 +889,7 @@ def buy_goods(request):
                 order_id=order_id,order_user=user[0],order_store=store[0],order_number=order_number,order_allowCard=order_allowCard,
                 order_price = order_price,order_discount=order_discount,order_cardDiscount=order_cardDiscount
             )
-            obj.order_goods = goodsList;
+            obj.order_goods.set(goodsList);
             obj.save();
             store.update(order_number=str(int(store[0].order_number)+1))
             return JsonResponse({'msg': 'ok','order_id':order_id})
