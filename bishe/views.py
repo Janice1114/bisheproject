@@ -341,7 +341,7 @@ def user_order(request):
         order_allowCard = item.order_allowCard.split(',').pop(0);
         order_priceList = item.order_priceList.split(',').pop(0);
         time = item.order_time.year+'-'+item.order_time.month+"-"+item.order_time.day+","\
-               +int(item.order_time.hour+8)+","+item.order_time.minute+','+item.order_time.second;
+               +str(int(item.order_time.hour)+8)+","+item.order_time.minute+','+item.order_time.second;
         data = {
             'name':item.order_store.store_name,
             'id':item.order_id,
