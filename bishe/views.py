@@ -858,6 +858,7 @@ def buy_goods(request):
             order_cardDiscount = request.POST.get('order_cardDiscount', None)
             order_goods = request.POST.get('order_goods', None)
             order_allowCard = request.POST.get('order_allowCard', None)
+            order_priceList = request.POST.get('order_priceList', None)
             store_name = request.POST.get('store_name', None)
             store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
             order_number1 = store[0].order_number + 1
@@ -894,7 +895,7 @@ def buy_goods(request):
                 
             obj = models.order.objects.create(
                 order_id=order_id,order_user=user[0],order_store=store[0],order_number=order_number,order_allowCard=order_allowCard,
-                order_price = order_price,order_discount=order_discount,order_cardDiscount=order_cardDiscount
+                order_price = order_price,order_discount=order_discount,order_cardDiscount=order_cardDiscount,order_priceList=order_priceList
             )
             obj.order_goods.set(goodsList);
             obj.save();
