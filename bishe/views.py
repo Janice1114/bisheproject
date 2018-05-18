@@ -332,13 +332,12 @@ def user_order(request):
         goods_name = "";
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
-        print(goods_name.split(','))
-        goods_name = goods_name.split(',').remove("");
+        goods_name = goods_name.split(',');
         print(goods_name)
-        order_discount = item.order_discount.split(',').remove("");
-        order_number = item.order_number.split(',').remove("");
-        order_allowCard = item.order_allowCard.split(',').remove("");
-        order_priceList = item.order_priceList.split(',').remove("");
+        order_discount = item.order_discount.split(',');
+        order_number = item.order_number.split(',');
+        order_allowCard = item.order_allowCard.split(',');
+        order_priceList = item.order_priceList.split(',');
         hour = int(item.order_time.hour)+8;
         time = str(item.order_time.year)+'-'+str(item.order_time.month)+"-"+str(item.order_time.day)+","\
                +str(hour)+","+str(item.order_time.minute)+','+str(item.order_time.second);
