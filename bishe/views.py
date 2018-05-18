@@ -344,7 +344,7 @@ def user_order(request):
         time = str(item.order_time.year)+'-'+str(item.order_time.month)+"-"+str(item.order_time.day)+","\
                +str(hour)+","+str(item.order_time.minute)+','+str(item.order_time.second);
         data = {
-            'image':item.order_store.store_img1.url,
+            'image':item.order_store.store_cover.url,
             'name':item.order_store.store_name,
             'id':item.order_id,
             'data':time,
