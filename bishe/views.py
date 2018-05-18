@@ -855,7 +855,9 @@ def buy_goods(request):
             order_allowCard = request.POST.get('order_allowCard', None)
             store_name = request.POST.get('store_name', None)
             store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
-            order_id = 'O' + datetime.now().strftime("%y%m%d")  + str(store[0].store_registerId) + str(store[0].order_number);
+            order_number = store[0].order_number + 1
+            store.update(order_number = order_number)
+            order_id = 'O' + datetime.now().strftime("%y%m%d")  + str(store[0].store_registerId) + str(order_number);
             user = models.user.objects.extra(where=['binary user_name=%s'], params=[user_name])
             if (store.count() == 0 or user.count() == 0):
                 return JsonResponse({'msg': 'fail'})
