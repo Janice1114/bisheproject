@@ -574,7 +574,7 @@ def store_goods(request):
                 goods = item.order_goods.all();
                 TheIndex = 0;
                 for i in goods:
-                    currIndex = 0;
+                    currIndex = -1;
                     iii = 0;
                     for ii in goods_id:
                         if ii == i.goods_id:
