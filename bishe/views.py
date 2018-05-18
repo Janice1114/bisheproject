@@ -524,17 +524,21 @@ def store_order(request):
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
         print(goods_name)
-        goods_name = goods_name.split(',').pop(0);
+        goods_name = goods_name.split(',');
         print(item.order_discount)
-        order_discount = item.order_discount.split(',').pop(0);
+        order_discount = item.order_discount.split(',');
         print(order_discount)
-        order_number = item.order_number.split(',').pop(0);
-        order_allowCard = item.order_allowCard.split(',').pop(0);
-        order_priceList = item.order_priceList.split(',').pop(0);
+        order_number = item.order_number.split(',');
+        order_allowCard = item.order_allowCard.split(',');
+        order_priceList = item.order_priceList.split(',');
+        hour = int(item.order_time.hour)+8;
+        time = str(item.order_time.year)+'-'+str(item.order_time.month)+"-"+str(item.order_time.day)+","\
+               +str(hour)+","+str(item.order_time.minute)+','+str(item.order_time.second);
         data = {
             'name': item.order_user.user_name,
+            'image':item.order_user.user_img.url,
             'id': item.order_id,
-            'data': item.order_time,
+            'data': time,
             'price': item.order_price,
             'state': item.order_state,
             'pay': item.order_pay,
@@ -566,7 +570,7 @@ def store_goods(request):
         for item in Order:
             if time.month == item.order_time.month:
                 order_number = item.order_number
-                order_number = order_number.split(',').pop(0)
+                order_number = order_number.split(',')
                 goods = item.order_goods.all();
                 TheIndex = 0;
                 for i in goods:
@@ -574,10 +578,11 @@ def store_goods(request):
                     Index = 0;
                     if currIndex == -1:
                         for ii in goods_number:
-                            if ii < order_number[Index]:
+                            if ii < order_number[Index+1]:
                                 break;
                             Index = Index + 1;
                         goods_id.insert(Index,i.goods_id);
+                        print(goods_id);
                         goods_name.insert(Index,i.goods_name)
                         goods_number.insert(Index,order_number[Index])
                         goods_left.insert(Index,i.goods_left)
