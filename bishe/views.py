@@ -858,7 +858,7 @@ def buy_goods(request):
             order_cardDiscount = request.POST.get('order_cardDiscount', None)
             order_goods = request.POST.get('order_goods', None)
             order_allowCard = request.POST.get('order_allowCard', None)
-            order_priceList = request.POST.get('order_priceList', None)
+            order_priceList = request.POST.get('price_list', None)
             store_name = request.POST.get('store_name', None)
             store = models.store.objects.extra(where=['binary store_name=%s'], params=[store_name])
             order_number1 = store[0].order_number + 1
