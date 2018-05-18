@@ -592,7 +592,7 @@ def store_goods(request):
                         goods_left.insert(Index,i.goods_left)
                     else:
                         goods_number[currIndex] = goods_number[currIndex]+order_number[TheIndex]
-                    sum = sum+ int(order_number[TheIndex]);
+                    sum = sum+ int(order_number[TheIndex+1]);
                     TheIndex = TheIndex + 1;
         return JsonResponse({'goods_id': goods_id, 'goods_name': goods_name,
                                'goods_left':goods_left,'goods_number':goods_number,'sum':sum})
