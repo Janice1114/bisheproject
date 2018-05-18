@@ -863,7 +863,7 @@ def buy_goods(request):
             index = 0;
             number_list = order_number.split(',')
             goods_list = order_goods.split(',');
-            print(goods_list);
+            print(goods_list)
             goodsList = [];
             for item in goods_list:
                 if item != "":
