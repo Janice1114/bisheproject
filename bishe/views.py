@@ -329,18 +329,23 @@ def user_order(request):
     Order = user[0].USER2ORDER.all()
     for item in Order:
         goods = item.order_goods.all();
+        print(goods)
         goods_name = "";
         for i in goods:
             goods_name = goods_name + ',' + i.goods_name;
+        print(goods_name)
         goods_name = goods_name.split(',').pop(0);
+        print(goods_name)
         order_discount = item.order_discount.split(',').pop(0);
         order_number = item.order_number.split(',').pop(0);
         order_allowCard = item.order_allowCard.split(',').pop(0);
         order_priceList = item.order_priceList.split(',').pop(0);
+        time = item.order_time.year+'-'+item.order_time.month+"-"+item.order_time.day+","\
+               +int(item.order_time.hour+8)+","+item.order_time.minute+','+item.order_time.second;
         data = {
             'name':item.order_store.store_name,
             'id':item.order_id,
-            'data':item.order_time,
+            'data':time,
             'price':item.order_price,
             'state':item.order_state,
             'pay':item.order_pay,
