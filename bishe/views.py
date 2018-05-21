@@ -44,10 +44,11 @@ def baseN(num, b):
     return ((num == 0) and "0") or (baseN(num // b, b).lstrip("0") + "0123456789abcdefghijklmnopqrstuvwxyz"[num % b])
 #生成验证码
 def buile_num(request):
-    # models.mySession.objects.all().delete();
-    # models.user.objects.all().delete();
+    models.mySession.objects.all().delete();
+    models.user.objects.all().delete();
     models.goods.objects.all().delete();
-    # models.stock.objects.all().delete();
+    models.stock.objects.all().delete();
+    models.order.objects.all().delete();
     return JsonResponse({'msg':'ok'})
 def verify_code(request,openId):
     # 1，定义变量，用于画面的背景色、宽、高
