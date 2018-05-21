@@ -587,7 +587,6 @@ def store_goods(request):
                         for ii in goods_number:
                             if ii < order_number[Index+1]:
                                 break;
-                            Index = Index + 1;
                         goods_id.insert(Index,i.goods_id);
                         goods_name.insert(Index,i.goods_name)
                         goods_number.insert(Index,order_number[Index+1])
